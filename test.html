@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AJAX POST Request</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+  <button id="sendRequest">Send AJAX Request</button>
+  
+  <script>
+    $(document).ready(function () {
+      $("#sendRequest").click(function () {
+        const url = "https://script.google.com/macros/s/AKfycbyAY5S0oFL4mRSrO57McvCn6UoWt4W3Bk4wmV4OWPWOhPx0jllLPVSbXZ7URj0AEZCH9Q/exec";
+        const data = { MSG: "Jjjhsjdhjsdh" };
+
+        $.ajax({
+          url: url,
+          type: "POST",
+          data: JSON.stringify(data),
+          success: function (response) {
+            console.log("Success:", response);
+            alert("Request successful!");
+          },
+          error: function (xhr, status, error) {
+            console.error("Error:", error);
+            // Optionally display an error message to the user
+            alert("An error occurred while sending the request.");
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
