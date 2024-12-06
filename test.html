@@ -1,36 +1,142 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AJAX POST Request</title>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-</head>
-<body>
-  <button id="sendRequest">Send AJAX Request</button>
-  
-  <script>
-    $(document).ready(function () {
-      $("#sendRequest").click(function () {
-        const url = "https://script.google.com/macros/s/AKfycbyAY5S0oFL4mRSrO57McvCn6UoWt4W3Bk4wmV4OWPWOhPx0jllLPVSbXZ7URj0AEZCH9Q/exec";
-        const data = { MSG: "Jjjhsjdhjsdh" };
 
-        $.ajax({
-          url: url,
-          type: "POST",
-          data: JSON.stringify(data),
-          success: function (response) {
-            console.log("Success:", response);
-            alert("Request successful!");
-          },
-          error: function (xhr, status, error) {
-            console.error("Error:", error);
-            // Optionally display an error message to the user
-            alert("An error occurred while sending the request.");
-          }
-        });
-      });
-    });
-  </script>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <title>Sewadar Entry Form</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- base:css -->
+    <link rel="stylesheet" href="admin/vendors/typicons.font/font/typicons.css">
+    <link rel="stylesheet" href="admin/vendors/css/vendor.bundle.base.css">
+    <link rel="stylesheet" href="admin/css/bootstrap.css">
+    <link rel="stylesheet" href="admin/css/pages/parsley.css">
+    <link rel="stylesheet" href="admin/css/app.css">
+    <link rel="shortcut icon" href="admin/images/favicon.ico">
+    <link rel="stylesheet" href="admin/vendors/choices.js/choices.min.css" />
+</head>
+
+<body >
+ <!--    <style>
+        @keyframes backgroundAnimation {
+            0% {
+                background-color: #ff7e5f;
+            }
+
+            50% {
+                background-color: #feb47b;
+            }
+
+            100% {
+                background-color: #ff7e5f;
+            }
+        }
+    </style> -->
+
+    <div class="auth-layout-wrap">
+        <div class="">
+            <div class="card">
+                <div class="row ">
+                    <div style="background-image: url('admin/images/guruji_cover.jpg'); background-size: contain; min-height: 230px;">
+                        <!-- card body -->
+                        <div class="card-body p-20" style="height: 100%;">
+                            <div id="carouselExampleCaptions" class="lide text-center widget-carousel" data-bs-ride="carousel">
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <div class="text-center p-1">
+                                            <i class="mdi mdi-bitcoin widget-box-1-icon"></i>
+                                            <div class="avatar-md m-auto">
+                                                <span class="avatar-title rounded-circle bg-light-subtle text-white font-size-24">
+                                                    <i class="mdi mdi-currency-btc"></i>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row justify-content-center badge-gray-100">
+                    <div class="col-lg-10 col-md-10 col-sm-12">
+                        <div class="p-4 p-md-5">
+                            <form method="POST" data-parsley-validate>
+                                <div class="row">
+                                    <!-- Full Name Field -->
+                                    <div class="col-md-6 col-sm-12 mb-3">
+                                        <label for="name">Full Name</label>
+                                        <input type="text" name="nameInput" id="nameInput" class="form-control" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                    </div>
+
+                                    <!-- Phone Number Field -->
+                                    <div class="col-md-6 col-sm-12 mb-3">
+                                        <label for="phone">WhatsApp Number</label>
+                                        <input type="number" name="phone_number" id="id_phone" class="form-control" data-parsley-pattern="/^[9][6-9]\d{8}$/i" data-parsley-error-message="You must enter a valid phone number." data-parsley-required-message="This field is required." data-parsley-required="true" maxlength="10">
+                                    </div>
+
+                                    <!-- Phone Number Field -->
+                                    <div class="col-md-6 col-sm-12 mb-3">
+                                        <label for="phone">Age</label>
+                                        <input type="number" name="ageInput" id="ageInput" class="form-control" data-parsley-pattern="/^[9][6-9]\d{8}$/i" data-parsley-error-message="You must enter a valid phone number." data-parsley-required-message="This field is required." data-parsley-required="true" maxlength="10">
+                                    </div>
+
+                                    <!-- MantraType -->
+                                    <div class="col-md-6 col-sm-12 mb-3">
+                                        <label for="mantraType">Mantra Type</label>
+                                        <select class="form-control" id="mantraType" name="mantraType" data-parsley-required="true" data-parsley-required-message="This field is required." >
+                                            <option value="" selected disabled>Select Mantra Type</option>
+                                            <option value="Pratham">Pratham</option>
+                                            <option value="Satnaam">Satnaam</option>
+                                            <option value="Saarnaam">Saarnaam</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- Mantra Taken date -->
+                                    <div class="col-md-6 col-sm-12 mb-3">
+                                        <label for="mantraTakenDate">First Mantra Taken Date</label>
+                                        <input type="date" name="mantraTakenDate" id="mantraTakenDate" class="form-control" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                    </div>
+
+
+
+
+                                    
+
+             
+                                    <!-- Email Field -->
+                                    <div class="col-md-6 col-sm-12 mb-3">
+                                        <label for="email">Email</label>
+                                        <input type="email" name="email" id="email" class="form-control" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="mt-2 p-12 btn btn-primary w-100 ">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
+
 </html>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const inputField = document.getElementById('id_phone');
+
+        inputField.addEventListener('input', function (e) {
+            const value = inputField.value;
+            if (value.length > 10) {
+                inputField.value = value.slice(0, 10);
+            }
+        });
+    });
+</script>
+
+<script src="admin/vendors/choices.js/choices.min.js"></script>
+<script src="admin/js/jquery.js"></script>
+<script src="admin/js/pages/parsley.min.js"></script>
