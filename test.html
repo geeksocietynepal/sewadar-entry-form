@@ -16,31 +16,104 @@
     <link rel="shortcut icon" href="admin/images/favicon.ico">
     <link rel="stylesheet" href="admin/vendors/choices.js/choices.min.css" />
 </head>
+<style>
+/* Prevent horizontal scrolling */
+html, body {
+    height: 100%; /* Ensure body and html take full height */
+    margin: 0;    /* Remove default margin */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+    overflow-y: auto;  /* Allow vertical scrolling if necessary */
+}
 
-<body >
- <!--    <style>
-        @keyframes backgroundAnimation {
-            0% {
-                background-color: #ff7e5f;
-            }
+/* Set the background image area */
+div[style*="background-image"] {
+    background-size: cover;
+    width: 100%;
+    height: 60vh; /* Adjust the height to fit within the viewport */
+    overflow: hidden; /* Prevent overflow due to background image */
+}
 
-            50% {
-                background-color: #feb47b;
-            }
+/* Ensure the card doesn't overflow */
+.card {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensures it takes full screen height */
+}
 
-            100% {
-                background-color: #ff7e5f;
-            }
-        }
-    </style> -->
+/* Prevent overflowing form content */
+form {
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+    overflow-y: auto; /* Allow vertical scrolling if needed */
+}
 
+/* Make form elements responsive */
+input, select, textarea {
+    width: 100%;
+    box-sizing: border-box; /* Prevent content overflow */
+}
+
+/* For images, ensure they fit within the screen */
+img, video {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Adjust the height of the form fields and buttons */
+button {
+    width: 100%;
+}
+
+/* Ensure content doesn't overflow */
+.card-body {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Prevent overflow within the card */
+}
+
+/* media queries */
+
+/* Small devices (phones, 600px and down) */
+@media only screen and (max-width: 700px) {
+    /* Set the background image area */
+div[style*="background-image"] {
+    background-size: cover;
+    background-position: center center;
+    width: 100%;
+    height: 30vh; /* Adjust the height to fit within the viewport */
+    overflow: hidden; /* Prevent overflow due to background image */
+}
+}
+
+@media only screen and ( min-width: 700px) and ( max-width: 1200px) {
+    /* Set the background image area */
+div[style*="background-image"] {
+    background-size: cover;
+    background-position: center center;
+    width: 100%;
+    height: 25vh; /* Adjust the height to fit within the viewport */
+    overflow: hidden; /* Prevent overflow due to background image */
+}
+}
+
+
+
+</style>
+<body>
     <div class="">
         <div class="">
-            <div class="card">
-                <div class="row ">
-                    <div style="background-image: url('admin/images/guruji_cover.jpg'); background-size: contain; min-height: 230px;">
+            <div class="card badge-gray-100">
+                <div class="row">
+                    <!-- Use responsive background with no horizontal scroll -->
+                    <div style="background-image: url('admin/images/guruji_cover.jpg'); background-size: cover; ">
                         <!-- card body -->
-                        <div class="card-body p-20" style="height: 100%;">
+                        <div class="card-body p-20" style="height: 100%; display: flex; justify-content: center; align-items: center;">
                             <div id="carouselExampleCaptions" class="lide text-center widget-carousel" data-bs-ride="carousel">
                                 <div class="carousel-inner">
                                     <div class="carousel-item active">
@@ -58,8 +131,9 @@
                         </div>
                     </div>
                 </div>
-                
-                <div class="row justify-content-center badge-gray-100">
+
+                <!-- Form Section -->
+                <div class="row justify-content-center ">
                     <div class="col-lg-10 col-md-10 col-sm-12">
                         <div class="p-4 p-md-5">
                             <form method="POST" data-parsley-validate>
@@ -76,13 +150,13 @@
                                         <input type="number" name="phone_number" id="id_phone" class="form-control" data-parsley-pattern="/^[9][6-9]\d{8}$/i" data-parsley-error-message="You must enter a valid phone number." data-parsley-required-message="This field is required." data-parsley-required="true" maxlength="10">
                                     </div>
 
-                                    <!-- Phone Number Field -->
+                                    <!-- Age Field -->
                                     <div class="col-md-6 col-sm-12 mb-3">
-                                        <label for="phone">Age</label>
+                                        <label for="age">Age</label>
                                         <input type="number" name="ageInput" id="ageInput" class="form-control"  data-parsley-required-message="This field is required." data-parsley-required="true" maxlength="10">
                                     </div>
 
-                                    <!-- MantraType -->
+                                    <!-- Mantra Type Field -->
                                     <div class="col-md-6 col-sm-12 mb-3">
                                         <label for="mantraType">Mantra Type</label>
                                         <select class="form-control" id="mantraType" name="mantraType" data-parsley-required="true" data-parsley-required-message="This field is required." >
@@ -93,23 +167,30 @@
                                         </select>
                                     </div>
 
-                                    <!-- Mantra Taken date -->
+                                    <!-- Mantra Taken Date Field -->
                                     <div class="col-md-6 col-sm-12 mb-3">
                                         <label for="mantraTakenDate">First Mantra Taken Date</label>
                                         <input type="date" name="mantraTakenDate" id="mantraTakenDate" class="form-control" data-parsley-required-message="This field is required." data-parsley-required="true">
                                     </div>
 
-
-
-
-                                    
-
-             
                                     <!-- Email Field -->
                                     <div class="col-md-6 col-sm-12 mb-3">
                                         <label for="email">Email</label>
                                         <input type="email" name="email" id="email" class="form-control" data-parsley-required-message="This field is required." data-parsley-required="true">
                                     </div>
+                                         <!-- Mantra Taken Date Field -->
+                                         <div class="col-md-6 col-sm-12 mb-3">
+                                            <label for="mantraTakenDate">First Mantra Taken Date</label>
+                                            <input type="date" name="mantraTakenDate" id="mantraTakenDate" class="form-control" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                        </div>
+    
+                                        <!-- Email Field -->
+                                        <div class="col-md-6 col-sm-12 mb-3">
+                                            <label for="email">Email</label>
+                                            <input type="email" name="email" id="email" class="form-control" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                        </div>
+
+                                        
                                 </div>
 
                                 <button type="submit" class="mt-2 p-12 btn btn-primary w-100 ">Submit</button>
