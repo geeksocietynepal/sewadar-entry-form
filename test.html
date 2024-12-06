@@ -19,18 +19,18 @@
 <style>
 /* Prevent horizontal scrolling */
 html, body {
-    height: 100%; /* Ensure body and html take full height */
-    margin: 0;    /* Remove default margin */
-    overflow-x: hidden; /* Prevent horizontal scrolling */
-    overflow-y: auto;  /* Allow vertical scrolling if necessary */
+    height: 100%; 
+    margin: 0;    
+    overflow-x: hidden; 
+    overflow-y: auto;  
 }
 
 /* Set the background image area */
 div[style*="background-image"] {
     background-size: cover;
     width: 100%;
-    height: 60vh; /* Adjust the height to fit within the viewport */
-    overflow: hidden; /* Prevent overflow due to background image */
+    height: 55vh; 
+    overflow: hidden; 
 }
 
 /* Ensure the card doesn't overflow */
@@ -46,61 +46,93 @@ form {
     width: 100%;
     padding: 20px;
     box-sizing: border-box;
-    overflow-x: hidden; /* Prevent horizontal scrolling */
-    overflow-y: auto; /* Allow vertical scrolling if needed */
+    overflow-x: hidden; 
+    overflow-y: auto; 
 }
 
 /* Make form elements responsive */
 input, select, textarea {
     width: 100%;
-    box-sizing: border-box; /* Prevent content overflow */
+    box-sizing: border-box; 
 }
 
-/* For images, ensure they fit within the screen */
+
 img, video {
     max-width: 100%;
     height: auto;
     display: block;
 }
 
-/* Adjust the height of the form fields and buttons */
+
 button {
     width: 100%;
 }
 
-/* Ensure content doesn't overflow */
+
 .card-body {
     padding: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden; /* Prevent overflow within the card */
+    overflow: hidden; 
 }
+     
+     .form-check-input {
+            display: none;
+        }
 
-/* media queries */
+        .btn-custom {
+            display: inline-block;
+            padding: 5px 15px;
+            background-color: #461ca0;  
+            color: white;
+            border: 1px solid #2a1061;
+            border-radius: 25px; 
+            text-align: center;
+            cursor: pointer;
+            font-size: 12px;
+            transition: background-color 0.3s ease;
+        }
 
-/* Small devices (phones, 600px and down) */
-@media only screen and (max-width: 700px) {
-    /* Set the background image area */
-div[style*="background-image"] {
-    background-size: cover;
-    background-position: center center;
-    width: 100%;
-    height: 30vh; /* Adjust the height to fit within the viewport */
-    overflow: hidden; /* Prevent overflow due to background image */
-}
-}
+        
+        .form-check-input:checked + .form-check-label {
+            background-color: #28a745;  
+            border-color: #28a745;
+        }
 
-@media only screen and ( min-width: 700px) and ( max-width: 1200px) {
-    /* Set the background image area */
-div[style*="background-image"] {
-    background-size: cover;
-    background-position: center center;
-    width: 100%;
-    height: 25vh; /* Adjust the height to fit within the viewport */
-    overflow: hidden; /* Prevent overflow due to background image */
-}
-}
+        .btn-custom:hover {
+            background-color: #56369b;  
+            border-color: #56369b;
+        }
+
+        
+        .form-check-input:focus + .form-check-label {
+            outline: none;
+            box-shadow: 0 0 0 0.2rem rgba(2, 33, 66, 0.25); 
+        }
+        /* media queries */
+
+        @media only screen and (max-width: 700px) {
+        
+        div[style*="background-image"] {
+            background-size: cover;
+            background-position: center center;
+            width: 100%;
+            height: 30vh; 
+            overflow: hidden; 
+        }
+        }
+
+        @media only screen and ( min-width: 700px) and ( max-width: 1200px) {
+            /* Set the background image area */
+            div[style*="background-image"] {
+                background-size: cover;
+                background-position: center center;
+                width: 100%;
+                height: 25vh; 
+                overflow: hidden; 
+            }
+        }
 
 
 
@@ -150,21 +182,25 @@ div[style*="background-image"] {
                                         <input type="number" name="phone_number" id="id_phone" class="form-control" data-parsley-pattern="/^[9][6-9]\d{8}$/i" data-parsley-error-message="You must enter a valid phone number." data-parsley-required-message="This field is required." data-parsley-required="true" maxlength="10">
                                     </div>
 
-                                    <!-- Age Field -->
-                                    <div class="col-md-6 col-sm-12 mb-3">
-                                        <label for="age">Age</label>
-                                        <input type="number" name="ageInput" id="ageInput" class="form-control"  data-parsley-required-message="This field is required." data-parsley-required="true" maxlength="10">
-                                    </div>
-
-                                    <!-- Mantra Type Field -->
+                                      <!-- Mantra Type Radio Button -->
                                     <div class="col-md-6 col-sm-12 mb-3">
                                         <label for="mantraType">Mantra Type</label>
-                                        <select class="form-control" id="mantraType" name="mantraType" data-parsley-required="true" data-parsley-required-message="This field is required." >
-                                            <option value="" selected disabled>Select Mantra Type</option>
-                                            <option value="Pratham">Pratham</option>
-                                            <option value="Satnaam">Satnaam</option>
-                                            <option value="Saarnaam">Saarnaam</option>
-                                        </select>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="mantraType" id="pratham" value="Pratham" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                            <label class="form-check-label btn-custom" for="pratham">
+                                                Pratham
+                                            </label>
+
+                                            <input class="form-check-input" type="radio" name="mantraType" id="satnaam" value="Satnaam" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                            <label class="form-check-label btn-custom" for="satnaam">
+                                                Satnaam
+                                            </label>
+
+                                            <input class="form-check-input" type="radio" name="mantraType" id="saarnaam" value="Saarnaam" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                            <label class="form-check-label btn-custom" for="saarnaam">
+                                                Saarnaam
+                                            </label>
+                                        </div>
                                     </div>
 
                                     <!-- Mantra Taken Date Field -->
@@ -173,23 +209,51 @@ div[style*="background-image"] {
                                         <input type="date" name="mantraTakenDate" id="mantraTakenDate" class="form-control" data-parsley-required-message="This field is required." data-parsley-required="true">
                                     </div>
 
-                                    <!-- Email Field -->
+                                    <!-- Date of Birth  -->
                                     <div class="col-md-6 col-sm-12 mb-3">
-                                        <label for="email">Email</label>
-                                        <input type="email" name="email" id="email" class="form-control" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                        <label for="dob">Date of Birth</label>
+                                        <input type="date" name="dob" id="dob" class="form-control"  data-parsley-required-message="This field is required." data-parsley-required="true" maxlength="10">
                                     </div>
-                                         <!-- Mantra Taken Date Field -->
-                                         <div class="col-md-6 col-sm-12 mb-3">
-                                            <label for="mantraTakenDate">First Mantra Taken Date</label>
-                                            <input type="date" name="mantraTakenDate" id="mantraTakenDate" class="form-control" data-parsley-required-message="This field is required." data-parsley-required="true">
-                                        </div>
-    
-                                        <!-- Email Field -->
-                                        <div class="col-md-6 col-sm-12 mb-3">
-                                            <label for="email">Email</label>
-                                            <input type="email" name="email" id="email" class="form-control" data-parsley-required-message="This field is required." data-parsley-required="true">
-                                        </div>
 
+                                    <!-- Gender Radio Button -->
+                                    <div class="col-md-6 col-sm-12 mb-3">
+                                        <label for="gender">Gender</label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="gender" id="male" value="Male" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                            <label class="form-check-label btn-custom" for="male">
+                                                Male
+                                            </label>
+
+                                            <input class="form-check-input" type="radio" name="gender" id="female" value="Female" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                            <label class="form-check-label btn-custom" for="female">
+                                                Female
+                                            </label>
+
+                                            <input class="form-check-input" type="radio" name="gender" id="others" value="Others" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                            <label class="form-check-label btn-custom" for="others">
+                                                Others
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <!-- Gender Radio Button -->
+                                    <div class="col-md-6 col-sm-12 mb-3">
+                                        <label for="gender">Anther member Bhagat in your family?</label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="member_bhagat" id="yes" value="Yes" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                            <label class="form-check-label btn-custom" for="yes">
+                                                Yes
+                                            </label>
+
+                                            <input class="form-check-input" type="radio" name="member_bhagat" id="no" value="No" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                            <label class="form-check-label btn-custom" for="no">
+                                                No
+                                            </label>
+
+                                        </div>
+                                    </div>
+
+                                  
                                         
                                 </div>
 
