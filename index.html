@@ -920,41 +920,38 @@ button {
         const additionalSewaDistrictState = Array.from(document.querySelectorAll('input[name="AdditionalSewa"]:checked'))
             .map(checkbox => checkbox.value);
 
-        const data = {
-            name: formData.get('nameInput'),
-            phone: formData.get('phone_number'),
-            mantraType: formData.get('mantraType'),
-            mantraTakenDate: formData.get('mantraTakenDate'),
-            dob: formData.get('dob'),
-            gender: formData.get('gender'),
-            yes_no_memberBhagat: formData.get('member_bhagat'),
-            yesanotherBhagatMemberName: formData.get('member_bhagat') === "Yes" ? formData.get('yesanotherBhagat') : null,
-            permanent_address: {
-                province: formData.get('permanentAddressStateInput'),
-                district: formData.get('permanentAddressDistrictInput'),
-                municipality: formData.get('permanentAddressMunicipalityInput'),
-                ward: formData.get('permanentAddressWardInput'),
-                tole: formData.get('permanentAddressToleInput')
-            },
-            temporary_address: {
-                province: formData.get('temporaryAddressStateInput'),
-                district: formData.get('temporaryAddressDistrictInput'),
-                municipality: formData.get('temporaryAddressMunicipalityInput'),
-                ward: formData.get('temporaryAddressWardInput'),
-                tole: formData.get('temporaryAddressToleInput')
-            },
-            blood_group: formData.get('bloodgroup'),
-            blood_donation_yes_no: formData.get('blood_donation'),
-            socialMediaGroups: socialMediaGroups,
-            social_media_sewa_status: formData.get('social_status'),
-            additionalSewaDistrictState: additionalSewaDistrictState,
-            sms_sewa_status: formData.get('sms_status'),
-            joined_in_sms_sewa_group: formData.get('smsSewaGroupInput'),
-            special_sewa_in_sms: formData.get('specialSewaSMSInput'),
-            calling_sewa: formData.get('calling_sewa'),
-            feedback_calling_sewa: formData.get('feedback_calling_sewa'),
-            other_sewa_responsibility: formData.get('otherSewaResponsibilityInput')
-        };
+            const data = {
+                nameInput: formData.get('nameInput'),
+                phone_number: formData.get('phone_number'),
+                mantraType: formData.get('mantraType'),
+                mantraTakenDate: formData.get('mantraTakenDate'),
+                dob: formData.get('dob'),
+                gender: formData.get('gender'),
+                member_bhagat: formData.get('member_bhagat'),
+                yesanotherBhagat: formData.get('member_bhagat') === "Yes" ? formData.get('yesanotherBhagat') : null,
+                permanentAddressStateInput: formData.get('permanentAddressStateInput'),
+                permanentAddressDistrictInput: formData.get('permanentAddressDistrictInput'),
+                permanentAddressMunicipalityInput: formData.get('permanentAddressMunicipalityInput'),
+                permanentAddressWardInput: formData.get('permanentAddressWardInput'),
+                permanentAddressToleInput: formData.get('permanentAddressToleInput'),
+                temporaryAddressStateInput: formData.get('temporaryAddressStateInput'),
+                temporaryAddressDistrictInput: formData.get('temporaryAddressDistrictInput'),
+                temporaryAddressMunicipalityInput: formData.get('temporaryAddressMunicipalityInput'),
+                temporaryAddressWardInput: formData.get('temporaryAddressWardInput'),
+                temporaryAddressToleInput: formData.get('temporaryAddressToleInput'),
+                bloodgroup: formData.get('bloodgroup'),
+                blood_donation: formData.get('blood_donation'),
+                socialMediaGroups: socialMediaGroups,
+                social_media_sewa_status: formData.get('social_status'),
+                additionalSewaDistrictState: additionalSewaDistrictState,
+                sms_status: formData.get('sms_status'),
+                smsSewaGroupInput: formData.get('smsSewaGroupInput'),
+                specialSewaSMSInput: formData.get('specialSewaSMSInput'),
+                calling_sewa: formData.get('calling_sewa'),
+                feedback_calling_sewa: formData.get('feedback_calling_sewa'),
+                otherSewaResponsibilityInput: formData.get('otherSewaResponsibilityInput')
+            };
+
 
         console.log(data);
 
