@@ -168,7 +168,7 @@ button {
                 <div class="row justify-content-center ">
                     <div class="col-lg-10 col-md-10 col-sm-12">
                         <div class="p-4 p-md-5">
-                            <form method="POST" data-parsley-validate>
+                            <form method="POST" data-parsley-validate id="myForm">
                                 <div class="row">
                                     <!-- Full Name Field -->
                                     <div class="col-md-6 col-sm-12 mb-3">
@@ -187,12 +187,12 @@ button {
                                         <label for="mantraType">Mantra Type</label>
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" name="mantraType" id="pratham" value="Pratham" data-parsley-required-message="This field is required." data-parsley-required="true">
-                                            <label class="form-check-label btn-custom" for="pratham">
+                                            <label class="form-check-label btn-custom mb-1" for="pratham">
                                                 Pratham
                                             </label>
 
                                             <input class="form-check-input" type="radio" name="mantraType" id="satnaam" value="Satnaam" data-parsley-required-message="This field is required." data-parsley-required="true">
-                                            <label class="form-check-label btn-custom" for="satnaam">
+                                            <label class="form-check-label btn-custom mb-1" for="satnaam">
                                                 Satnaam
                                             </label>
 
@@ -220,12 +220,12 @@ button {
                                         <label for="gender">Gender</label>
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" name="gender" id="male" value="Male" data-parsley-required-message="This field is required." data-parsley-required="true">
-                                            <label class="form-check-label btn-custom" for="male">
+                                            <label class="form-check-label btn-custom mb-1" for="male">
                                                 Male
                                             </label>
 
                                             <input class="form-check-input" type="radio" name="gender" id="female" value="Female" data-parsley-required-message="This field is required." data-parsley-required="true">
-                                            <label class="form-check-label btn-custom" for="female">
+                                            <label class="form-check-label btn-custom mb-1" for="female">
                                                 Female
                                             </label>
 
@@ -237,7 +237,7 @@ button {
                                     </div>
 
                             
-                                    <div class="col-md-6 col-sm-12 mb-3">
+                                    <div class="">
                                         <label for="gender">Another member Bhagat in your family?</label>
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input" type="radio" name="member_bhagat" id="yes" value="Yes" data-parsley-required-message="This field is required." data-parsley-required="true">
@@ -450,37 +450,37 @@ button {
                                         <label for="bloodgroup">Blood Group</label>
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" name="bloodgroup" id="o_positive" value="O+" data-parsley-required-message="This field is required." data-parsley-required="true">
-                                            <label class="form-check-label btn-custom" for="o_positive">
+                                            <label class="form-check-label btn-custom mb-1" for="o_positive">
                                                 O+
                                             </label>
                                         
                                             <input class="form-check-input" type="radio" name="bloodgroup" id="o_negative" value="O-" data-parsley-required-message="This field is required." data-parsley-required="true">
-                                            <label class="form-check-label btn-custom" for="o_negative">
+                                            <label class="form-check-label btn-custom mb-1" for="o_negative">
                                                 O-
                                             </label>
                                         
                                             <input class="form-check-input" type="radio" name="bloodgroup" id="a_positive" value="A+" data-parsley-required-message="This field is required." data-parsley-required="true">
-                                            <label class="form-check-label btn-custom" for="a_positive">
+                                            <label class="form-check-label btn-custom mb-1" for="a_positive">
                                                 A+
                                             </label>
                                         
                                             <input class="form-check-input" type="radio" name="bloodgroup" id="a_negative" value="A-" data-parsley-required-message="This field is required." data-parsley-required="true">
-                                            <label class="form-check-label btn-custom" for="a_negative">
+                                            <label class="form-check-label btn-custom mb-1" for="a_negative">
                                                 A-
                                             </label>
                                         
                                             <input class="form-check-input" type="radio" name="bloodgroup" id="b_positive" value="B+" data-parsley-required-message="This field is required." data-parsley-required="true">
-                                            <label class="form-check-label btn-custom" for="b_positive">
+                                            <label class="form-check-label btn-custom mb-1" for="b_positive">
                                                 B+
                                             </label>
                                         
                                             <input class="form-check-input" type="radio" name="bloodgroup" id="b_negative" value="B-" data-parsley-required-message="This field is required." data-parsley-required="true">
-                                            <label class="form-check-label btn-custom" for="b_negative">
+                                            <label class="form-check-label btn-custom mb-1" for="b_negative">
                                                 B-
                                             </label>
                                         
                                             <input class="form-check-input" type="radio" name="bloodgroup" id="ab_positive" value="AB+" data-parsley-required-message="This field is required." data-parsley-required="true">
-                                            <label class="form-check-label btn-custom" for="ab_positive">
+                                            <label class="form-check-label btn-custom mb-1" for="ab_positive">
                                                 AB+
                                             </label>
                                         
@@ -499,13 +499,13 @@ button {
                                      <div class="col-md-6 col-sm-12 mb-3">
                                         <label for="gender">Available for Blood Donation?</label>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="member_bhagat" id="yes" value="Yes" data-parsley-required-message="This field is required." data-parsley-required="true">
-                                            <label class="form-check-label btn-custom" for="yes">
+                                            <input class="form-check-input" type="radio" name="blood_donation" id="byes" value="Yes" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                            <label class="form-check-label btn-custom" for="byes">
                                                 Yes
                                             </label>
                                                                             
-                                            <input class="form-check-input" type="radio" name="member_bhagat" id="no" value="No" data-parsley-required-message="This field is required." data-parsley-required="true">
-                                            <label class="form-check-label btn-custom" for="no">
+                                            <input class="form-check-input" type="radio" name="blood_donation" id="bno" value="No" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                            <label class="form-check-label btn-custom" for="bno">
                                                 No
                                             </label>
 
@@ -565,7 +565,7 @@ button {
                                                         districtSelect.innerHTML = `<option value="">Select a district</option>` + districtOptionHTML;
                                             
                                                         // Clear the municipality dropdown
-                                                        document.getElementById("permanentAddressMunicipalityInput").innerHTML = `<option value="">Select a permanent municipality</option>`;
+                                                        document.getElementById("temporaryAddressMunicipalityInput").innerHTML = `<option value="">Select a  municipality</option>`;
                                                     });
                                             
                                                     // Initial trigger to populate districts if default state is set
@@ -691,7 +691,182 @@ button {
                                          </div>
                                         
                                      </div>
+
+                                     <div class="col-md-6 col-sm-12 mb-3">
+                                        <label for="bloodgroup">Joined in social media group (multiple selection possible)</label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="socialMediaGroup" id="l_g" value="Learning ग्रुप" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                            <label class="form-check-label btn-custom mb-1" for="l_g">
+                                                Learning ग्रुप
+                                            </label>
+                                        
+                                            <input class="form-check-input" type="checkbox" name="socialMediaGroup" id="s_m" value="Social Media Group" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                            <label class="form-check-label btn-custom mb-1" for="s_m">
+                                                Social Media Group
+                                            </label>
+                                        
+                                            <input class="form-check-input" type="checkbox" name="socialMediaGroup" id="b_o" value="Book Order" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                            <label class="form-check-label btn-custom mb-1" for="b_o">
+                                                Book Order
+                                            </label>
+                                        
+                                            <input class="form-check-input" type="checkbox" name="socialMediaGroup" id="t_t" value="Trend Team" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                            <label class="form-check-label btn-custom mb-1" for="t_t">
+                                                Trend Team
+                                            </label>
+                                        
+                                            <input class="form-check-input" type="checkbox" name="socialMediaGroup" id="n_s" value="Nepal Special Trend Team" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                            <label class="form-check-label btn-custom mb-1" for="n_s">
+                                                Nepal Special Trend Team
+                                            </label>
+                                        
+                                            <input class="form-check-input" type="checkbox" name="socialMediaGroup" id="p_g" value="Platform Group (YouTube, Twitter, Facebook, Instagram, Pinterest)" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                            <label class="form-check-label btn-custom" for="p_g">
+                                                Platform Group (YouTube, Twitter, Facebook, Instagram, Pinterest)
+                                            </label>
+                                        
+                                              
+                                        </div>
+                                        
+                                        
+                                     </div>
+                                     <div class="col-md-6 col-sm-12 mb-3">
+                                        <label for="gender">Social Media Sewa Status</label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="social_status" id="adsr" value="Actively Daily Sending Report" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                            <label class="form-check-label btn-custom mb-1" for="adsr">
+                                                Actively Daily Sending Report
+                                            </label>
+                                                                            
+                                            <input class="form-check-input" type="radio" name="social_status" id="absdnsr" value="Active but some days not sending report" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                            <label class="form-check-label btn-custom mb-1" for="absdnsr">
+                                                Active but some days not sending report
+                                            </label>
+
+                                            <input class="form-check-input" type="radio" name="social_status" id="na" value="Not Active" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                            <label class="form-check-label btn-custom" for="na">
+                                                Not Active
+                                            </label>
+
+                                        </div>
+                                     
+                                     </div>
+
+                                     <div class="col-md-6 col-sm-12 mb-3">
+                                        <label for="bloodgroup">Additional Sewa of district/state social media (multiple selection possible)</label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="AdditionalSewa" id="re_ma" value="Report making" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                            <label class="form-check-label btn-custom mb-1" for="re_ma">
+                                                Report making
+                                            </label>
+                                        
+                                            <input class="form-check-input" type="checkbox" name="AdditionalSewa" id="so_me" value="Social Media Group" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                            <label class="form-check-label btn-custom mb-1" for="so_me">
+                                                Reporting
+                                            </label>
+                                        
+                                            <input class="form-check-input" type="checkbox" name="AdditionalSewa" id="ca_ma" value="Cameraman" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                            <label class="form-check-label btn-custom mb-1" for="ca_ma">
+                                                Cameraman
+                                            </label>
+                                        
+                                            <input class="form-check-input" type="checkbox" name="AdditionalSewa" id="other" value="Other" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                            <label class="form-check-label btn-custom mb-1" for="other">
+                                                Other
+                                            </label>
+                                        
+                                            <input class="form-check-input" type="checkbox" name="AdditionalSewa" id="a_no" value="No" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                            <label class="form-check-label btn-custom mb-1" for="a_no">
+                                                No
+                                            </label>   
+                                        </div>
+                                     </div>
+
+                                     <div class="col-md-6 col-sm-12 mb-3">
+                                        <label for="sms_status">SMS Sewa Status</label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="sms_status" id="no_in" value="Not Involved" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                            <label class="form-check-label btn-custom mb-1" for="no_in">
+                                                Not Involved
+                                            </label>
+                                                                            
+                                            <input class="form-check-input" type="radio" name="sms_status" id="ac_re" value="Actively Responsing" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                            <label class="form-check-label btn-custom mb-1" for="ac_re">
+                                                Actively Responsing
+                                            </label>
+
+                                            <input class="form-check-input" type="radio" name="sms_status" id="ac_bnre" value="Active but not reporting" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                            <label class="form-check-label btn-custom mb-1" for="ac_bnre">
+                                                Active but not reporting
+                                            </label>
+
+                                            <input class="form-check-input" type="radio" name="sms_status" id="no_ac" value="Not Active" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                            <label class="form-check-label btn-custom" for="no_ac">
+                                                Not Active
+                                            </label>
+
+
+
+                                        </div>
+                                     
+                                     </div>
+
+                                     <div class="col-md-6 col-sm-12 mb-3">
+                                        <div class="mb-3">
+                                            <label for="smsSewaGroupInput" class="form-label">Any Joined Group Name of SMS Sewa</label>
+                                            <input type="text" class="form-control" name="smsSewaGroupInput" id="smsSewaGroupInput" placeholder="Enter all the name of the group">
+                                        </div>
+                                     </div>
+
+                                     <div class="col-md-6 col-sm-12 mb-3">
+                                        <div class="mb-3">
+                                            <label for="specialSewaSMSInput" class="form-label">Any Special Sewa in SMS</label>
+                                            <input type="text" class="form-control" name="specialSewaSMSInput" id="specialSewaSMSInput" placeholder="Enter any special Sewa in SMS">
+                                        </div>
+                                     </div>
                                 
+                                     <div class="col-md-6 col-sm-12 mb-3">
+                                        <label for="gender">SMS Calling Sewa?</label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="calling_sewa" id="cal_sew_y" value="Yes" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                            <label class="form-check-label btn-custom" for="cal_sew_y">
+                                                Yes
+                                            </label>
+                                                                            
+                                            <input class="form-check-input" type="radio" name="calling_sewa" id="cal_sew_n" value="No" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                            <label class="form-check-label btn-custom" for="cal_sew_n">
+                                                No
+                                            </label>
+
+                                        </div>
+                                     
+                                     </div>
+
+                                     <div class="col-md-6 col-sm-12 mb-3">
+                                        <label for="gender">SMS Feedback Calling Sewa?</label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="feedback_calling_sewa" id="f_cal_sew_y" value="Yes" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                            <label class="form-check-label btn-custom" for="f_cal_sew_y">
+                                                Yes
+                                            </label>
+                                                                            
+                                            <input class="form-check-input" type="radio" name="feedback_calling_sewa" id="f_cal_sew_n" value="No" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                            <label class="form-check-label btn-custom" for="f_cal_sew_n">
+                                                No
+                                            </label>
+
+                                        </div>
+                                        
+                                     
+                                     </div>
+
+                                     <div class="col-md-6 col-sm-12 mb-3">
+                                        <div class="mb-3">
+                                            <label for="otherSewaResponsibilityInput" class="form-label">Any other Sewa responsibility?</label>
+                                            <input type="text" class="form-control" name="otherSewaResponsibilityInput" id="otherSewaResponsibilityInput" placeholder="Enter any other Sewa responsibility">
+                                        </div>
+                                     </div>
+
                                 </div>
 
                                 <button type="submit" class="mt-2 p-12 btn btn-primary w-100 ">Submit</button>
@@ -722,3 +897,82 @@ button {
 <script src="admin/vendors/choices.js/choices.min.js"></script>
 <script src="admin/js/jquery.js"></script>
 <script src="admin/js/pages/parsley.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        //form submit
+        $('#myForm').submit(function (e) {
+            e.preventDefault();
+            const url = "https://script.google.com/macros/s/AKfycbxky1Zkg3b64-tzSMY_GwPQlNfrFcleEuhx0BlFix0xEGkJKXOO9rqiAm-U13UGbl4Wnw/exec";
+            
+            var formData = new FormData(this);
+
+            const socialMediaGroups = Array.from(document.querySelectorAll('input[name="socialMediaGroup"]:checked'))
+                .map(checkbox => checkbox.value);
+
+            const additionalSewaDistrictState = Array.from(document.querySelectorAll('input[name="AdditionalSewa"]:checked'))
+            .map(checkbox => checkbox.value);
+
+        
+            const data = {
+
+                name: formData.get('nameInput'),
+                phone: formData.get('phone_number'),
+                mantraType: formData.get('mantraType'), 
+                mantraTakenDate: formData.get('mantraTakenDate'),
+                dob: formData.get('dob'),
+                gender: formData.get('gender'),
+                yes_no_memberBhagat: formData.get('member_bhagat'), 
+                yesanotherBhagatMemberName: formData.get('member_bhagat') === "Yes" ? formData.get('yesanotherBhagat') : null, 
+                permanent_address: {
+                    province: formData.get('permanentAddressStateInput'),
+                    district: formData.get('permanentAddressDistrictInput'),
+                    municipality: formData.get('permanentAddressMunicipalityInput'),
+                    ward: formData.get('permanentAddressWardInput'),
+                    tole: formData.get('permanentAddressToleInput')
+                },
+                temporary_address: {
+                    province: formData.get('temporaryAddressStateInput'),
+                    district: formData.get('temporaryAddressDistrictInput'),
+                    municipality: formData.get('temporaryAddressMunicipalityInput'),
+                    ward: formData.get('temporaryAddressWardInput'),
+                    tole: formData.get('temporaryAddressToleInput')
+                },
+                blood_group: formData.get('bloodgroup'),
+                blood_donation_yes_no: formData.get('blood_donation'),
+                socialMediaGroups: socialMediaGroups,
+                social_media_sewa_status: formData.get('social_status'),
+                additionalSewaDistrictState: additionalSewaDistrictState,
+                sms_sewa_status: formData.get('sms_status'),
+                joined_in_sms_sewa_group: formData.get('smsSewaGroupInput'),
+                special_sewa_in_sms: formData.get('specialSewaSMSInput'),
+                calling_sewa: formData.get('calling_sewa'),
+                feedback_calling_sewa: formData.get('feedback_calling_sewa'),
+                other_sewa_responsibility: formData.get('otherSewaResponsibilityInput')
+
+            };
+
+            console.log(data);
+
+              
+
+            
+
+            /* $.ajax({
+                url: url,
+                type: "POST",
+                data: JSON.stringify(data),
+                success: function (response) {
+                    console.log("Success:", response);
+                    alert("Request successful!");
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error:", error);
+                    // Optionally display an error message to the user
+                    alert("An error occurred while sending the request.");
+                }
+            }); */
+        });
+    });
+    
+</script>
