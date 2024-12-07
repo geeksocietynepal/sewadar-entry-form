@@ -1,843 +1,1013 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advanced Bootstrap Form</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <style>
- 
- .datepicker {
-    width: 100% !important;  /* Ensure it takes full width */
-    font-size: 16px; /* Adjust font size for smaller screens */
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <title>Sewadar Entry Form</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- base:css -->
+    <link rel="stylesheet" href="admin/vendors/typicons.font/font/typicons.css">
+    <link rel="stylesheet" href="admin/vendors/css/vendor.bundle.base.css">
+    <link rel="stylesheet" href="admin/css/bootstrap.css">
+    <link rel="stylesheet" href="admin/css/pages/parsley.css">
+    <link rel="stylesheet" href="admin/css/app.css">
+    <link rel="shortcut icon" href="admin/images/favicon.ico">
+    <link rel="stylesheet" href="admin/vendors/choices.js/choices.min.css" />
+</head>
+<style>
+/* Prevent horizontal scrolling */
+html, body {
+    height: 100%; 
+    margin: 0;    
+    overflow-x: hidden; 
+    overflow-y: auto;  
 }
-@media (max-width: 768px) {
-    .datepicker {
-        width: 100% !important;  /* Ensures calendar fits screen */
-    }
+
+/* Set the background image area */
+div[style*="background-image"] {
+    background-size: cover;
+    width: 100%;
+    height: 55vh; 
+    overflow: hidden; 
+}
+
+/* Ensure the card doesn't overflow */
+.card {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensures it takes full screen height */
+}
+
+/* Prevent overflowing form content */
+form {
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow-x: hidden; 
+    overflow-y: auto; 
+}
+
+/* Make form elements responsive */
+input, select, textarea {
+    width: 100%;
+    box-sizing: border-box; 
 }
 
 
-    </style>
-    <script>
-       let selectedgroupscustom;
-       let selecteddistrictsewagroupscustom;
-        // for another member is bhagat condition script
-        document.getElementById("bhagatInput").addEventListener("change",function(){
-            if(this.value == "yes"){
-                document.getElementById("bhagatMembers").style.display="block";
-            }else{
-                document.getElementById("bhagatMembers").style.display="none";
+img, video {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+
+button {
+    width: 100%;
+}
+
+
+.card-body {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; 
+}
+     
+     .form-check-input {
+            display: none;
+        }
+
+        .btn-custom {
+            display: inline-block;
+            padding: 5px 15px;
+            background-color: #461ca0;  
+            color: white;
+            border: 1px solid #2a1061;
+            border-radius: 25px; 
+            text-align: center;
+            cursor: pointer;
+            font-size: 12px;
+            transition: background-color 0.3s ease;
+        }
+
+        
+        .form-check-input:checked + .form-check-label {
+            background-color: #28a745;  
+            border-color: #28a745;
+        }
+
+        .btn-custom:hover {
+            background-color: #56369b;  
+            border-color: #56369b;
+        }
+
+        
+        .form-check-input:focus + .form-check-label {
+            outline: none;
+            box-shadow: 0 0 0 0.2rem rgba(2, 33, 66, 0.25); 
+        }
+        /* media queries */
+
+        @media only screen and (max-width: 700px) {
+        
+        div[style*="background-image"] {
+            background-size: cover;
+            background-position: center center;
+            width: 100%;
+            height: 30vh; 
+            overflow: hidden; 
+        }
+        }
+
+        @media only screen and ( min-width: 700px) and ( max-width: 1200px) {
+            /* Set the background image area */
+            div[style*="background-image"] {
+                background-size: cover;
+                background-position: center center;
+                width: 100%;
+                height: 25vh; 
+                overflow: hidden; 
+            }
+        }
+
+
+
+</style>
+<body>
+    <div class="">
+        <div class="">
+            <div class="card badge-gray-100">
+                <div class="row">
+                    <!-- Use responsive background with no horizontal scroll -->
+                    <div style="background-image: url('admin/images/guruji_cover.jpg'); background-size: cover; ">
+                        <!-- card body -->
+                        <div class="card-body p-20" style="height: 100%; display: flex; justify-content: center; align-items: center;">
+                            <div id="carouselExampleCaptions" class="lide text-center widget-carousel" data-bs-ride="carousel">
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <div class="text-center p-1">
+                                            <i class="mdi mdi-bitcoin widget-box-1-icon"></i>
+                                            <div class="avatar-md m-auto">
+                                                <span class="avatar-title rounded-circle bg-light-subtle text-white font-size-24">
+                                                    <i class="mdi mdi-currency-btc"></i>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form Section -->
+                <div class="row justify-content-center ">
+                    <div class="col-lg-10 col-md-10 col-sm-12">
+                        <div class="p-4 p-md-5">
+                            <form method="POST" data-parsley-validate id="myForm">
+                                <div class="row">
+                                    <!-- Full Name Field -->
+                                    <div class="col-md-6 col-sm-12 mb-3">
+                                        <label for="name">Full Name</label>
+                                        <input type="text" name="nameInput" id="nameInput" class="form-control" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                    </div>
+
+                                    <!-- Phone Number Field -->
+                                    <div class="col-md-6 col-sm-12 mb-3">
+                                        <label for="phone">WhatsApp Number</label>
+                                        <input type="number" name="phone_number" id="id_phone" class="form-control" data-parsley-pattern="/^[9][6-9]\d{8}$/i" data-parsley-error-message="You must enter a valid phone number." data-parsley-required-message="This field is required." data-parsley-required="true" maxlength="10">
+                                    </div>
+
+                                      <!-- Mantra Type Radio Button -->
+                                    <div class="col-md-6 col-sm-12 mb-3">
+                                        <label for="mantraType">Mantra Type</label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="mantraType" id="pratham" value="Pratham" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                            <label class="form-check-label btn-custom mb-1" for="pratham">
+                                                Pratham
+                                            </label>
+
+                                            <input class="form-check-input" type="radio" name="mantraType" id="satnaam" value="Satnaam" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                            <label class="form-check-label btn-custom mb-1" for="satnaam">
+                                                Satnaam
+                                            </label>
+
+                                            <input class="form-check-input" type="radio" name="mantraType" id="saarnaam" value="Saarnaam" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                            <label class="form-check-label btn-custom" for="saarnaam">
+                                                Saarnaam
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <!-- Mantra Taken Date Field -->
+                                    <div class="col-md-6 col-sm-12 mb-3">
+                                        <label for="mantraTakenDate">First Mantra Taken Date</label>
+                                        <input type="date" name="mantraTakenDate" id="mantraTakenDate" class="form-control" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                    </div>
+
+                                    <!-- Date of Birth  -->
+                                    <div class="col-md-6 col-sm-12 mb-3">
+                                        <label for="dob">Date of Birth</label>
+                                        <input type="date" name="dob" id="dob" class="form-control"  data-parsley-required-message="This field is required." data-parsley-required="true" maxlength="10">
+                                    </div>
+
+                                    <!-- Gender Radio Button -->
+                                    <div class="col-md-6 col-sm-12 mb-3">
+                                        <label for="gender">Gender</label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="gender" id="male" value="Male" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                            <label class="form-check-label btn-custom mb-1" for="male">
+                                                Male
+                                            </label>
+
+                                            <input class="form-check-input" type="radio" name="gender" id="female" value="Female" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                            <label class="form-check-label btn-custom mb-1" for="female">
+                                                Female
+                                            </label>
+
+                                            <input class="form-check-input" type="radio" name="gender" id="others" value="Others" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                            <label class="form-check-label btn-custom" for="others">
+                                                Others
+                                            </label>
+                                        </div>
+                                    </div>
+
+                            
+                                    <div class="">
+                                        <label for="gender">Another member Bhagat in your family?</label>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="member_bhagat" id="yes" value="Yes" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                            <label class="form-check-label btn-custom" for="yes">
+                                                Yes
+                                            </label>
+                                        </div>
+
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="member_bhagat" id="no" value="No" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                            <label class="form-check-label btn-custom" for="no">
+                                                No
+                                            </label>
+                                        </div>
+
+                                        <div id="anotherField" style="display: none;">
+                                            <input type="text" name="yesanotherBhagat" id="yesanotherBhagat" class="form-control d-inline-block"  placeholder="Enter Name of Member">
+                                        </div>
+                                        <script>
+                                            document.getElementById("yes").addEventListener("click", function () {
+                                                document.getElementById("anotherField").style.display = "block"; 
+                                            });
+    
+                                          
+                                            document.getElementById("no").addEventListener("click", function () {
+                                                document.getElementById("anotherField").style.display = "none"; 
+                                            });
+                                        </script>
+                                    </div>
+
+                                    <!-- Permanet Address -->
+                                     <!-- Provinces -->
+                                     <div class="col-md-12 col-sm-12 mb-3">
+                                        <label for="permanentAddressStateInput">Permanent Address</label>
+                                        <div class="row">
+                                            <!-- Province Select -->
+                                            <div class="col-12 col-md-3 mb-3">
+                                                <select name="permanentAddressStateInput" id="permanentAddressStateInput" class="form-control" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                                    <option value="" selected disabled>Select Province</option>
+                                                    <option value="koshi">Koshi</option>
+                                                    <option value="madhesh">Madhesh</option>
+                                                    <option value="bagmati">Bagmati</option>
+                                                    <option value="gandaki">Gandaki</option>
+                                                    <option value="lumbini">Lumbini</option>
+                                                    <option value="karnali">Karnali</option>
+                                                    <option value="sudurpaschim">Sudurpaschim</option>
+                                                </select>
+                                            </div>
+
+                                            <!-- District Select -->
+                                            <div class="col-12 col-md-4 mb-3">
+                                                <select name="permanentAddressDistrictInput" id="permanentAddressDistrictInput" class="form-control" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                                    <option value="" selected disabled>Select District</option>
+                                                    <!-- District options will be populated dynamically -->
+                                                </select>
+                                            </div>
+
+                                            <script>
+                                                document.addEventListener("DOMContentLoaded", function () {
+                                                    // Populate districts based on selected state
+                                                    const stateSelect = document.getElementById("permanentAddressStateInput");
+                                                    const districtSelect = document.getElementById("permanentAddressDistrictInput");
+                                            
+                                                    const districts = {
+                                                        
+                                                        "koshi":["भोजपुर", "धनकुटा", "इलाम", "झापा", "खोटाँग", "मोरंग", "ओखलढुंगा", "पांचथर", "संखुवासभा", "सोलुखुम्बू", "सुनसरी", "ताप्लेजुंग", "तेह्रथुम", "उदयपुर"],
+                                                        "madhesh":["बारा", "धनुषा", "महोत्तरी", "पर्सा", "रौतहट", "सप्तरी", "सर्लाही", "सिराहा"],
+                                                        "bagmati":["काठमाडौँ", "ललितपुर", "भक्तपुर", "मकवानपुर", "चितवन", "काभ्रेपलान्चोक", "सिन्धुपाल्चोक", "दोलखा", "रामेछाप", "रसुवा", "नुवाकोट"],
+                                                        "gandaki":["बागलुङ", "गोरखा", "कास्की", "लमजुङ", "मनाङ", "मुस्ताङ", "म्याग्दी", "नवलपुर", "पर्वत", "स्याङग्जा", "तनहुँ"],
+                                                        "lumbini":["अर्घाखाँची", "बाँके", "बर्दिया", "दाङ", "गुल्मी", "कपिलवस्तु", "परासी", "पाल्पा", "प्युठान", "रोल्पा", "पूर्वी रूकुम", "रुपन्देही"],
+                                                        "karnali":["दैलेख", "डोल्पा", "हुम्ला", "जाजरकोट", "जुम्ला", "कालिकोट", "मुगु", "रुकुम पश्चिम", "सल्यान", "सुर्खेत"],
+                                                        "sudurpaschim":["अछाम", "बैतडी", "बझाङ", "बाजुरा", "डोटी", "कैलाली", "कञ्चनपुर"]
+                                                    };
+                                            
+                                                    // Populate initial district options if state is selected
+                                                    stateSelect.addEventListener("change", function () {
+                                                        let selectedState = this.value;
+                                                        let districtOptions = districts[selectedState] || [];
+                                                        let districtOptionHTML = districtOptions.map(district => `<option value="${district}">${district}</option>`).join('');
+                                                        districtSelect.innerHTML = `<option value="">Select a district</option>` + districtOptionHTML;
+                                            
+                                                        // Clear the municipality dropdown
+                                                        document.getElementById("permanentAddressMunicipalityInput").innerHTML = `<option value="">Select a permanent municipality</option>`;
+                                                    });
+                                            
+                                                    // Initial trigger to populate districts if default state is set
+                                                    stateSelect.dispatchEvent(new Event('change'));
+                                                });
+                                            </script>
+
+                                            <!-- Municipality Select -->
+                                            <div class="col-12 col-md-4 mb-3">
+                                                <select name="permanentAddressMunicipalityInput" id="permanentAddressMunicipalityInput" class="form-control" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                                    <option value="" selected disabled>Select Municipality</option>
+                                                    <!-- Municipality options will be populated dynamically -->
+                                                </select>
+                                            </div>
+
+                                            
+                                            <script>
+                                                document.getElementById("permanentAddressDistrictInput").addEventListener("change", function () {
+                                                    let selectedDistrict = this.value;
+                                                    let municipalitySelect = document.getElementById("permanentAddressMunicipalityInput");
+                                                    let municipalityOptionHTML = "";
+
+                                                    const municipalities = {
+                                                    "भोजपुर": ['अरुण', 'आमचोक', 'टेम्केमैयुङ', 'पौवादुङमा', 'भोजपुर', 'रामप्रसाद राई', 'षडानन्द', 'साल्पासिलिछो', 'हतुवागढी'],
+                                            "धनकुटा": ['चौविसे', 'छथर जोरपाटी', 'धनकुटा', 'पाख्रिबास', 'महालक्ष्मी', 'सहिदभूमि', 'साँगुरीगढी'],
+                                            "इलाम": ['ईलाम', 'चुलाचुली', 'देउमाई', 'फाकफोकथुम', 'माई', 'माईजोगमाई', 'माङसेबुङ', 'रोङ', 'सन्दकपुर', 'सूर्योदय'],
+                                            "झापा": ['अर्जुनधारा', 'कचनकवल', 'कन्काई', 'कमल', 'गौरादह', 'गौरीगंज', 'झापा', 'दमक', 'बाह्रदशी', 'बुद्धशान्ति', 'भद्रपुर', 'मेचीनगर', 'विर्तामोड', 'शिवशताक्षी', 'हल्दिवारी'],
+                                            "खोटाँग": ['ऐसेलुखर्क', 'केपिलासगढी', 'खोटेहाङ', 'जन्तेढुंगा', 'दिक्तेल रुपाकोट मझुवागढी', 'दिप्रुङ चुइचुम्मा', 'रावा बेसी', 'वराहपोखरी', 'साकेला', 'हलेसी तुवाचुङ'],
+                                            "मोरंग": ['उर्लावारी', 'कटहरी', 'कानेपोखरी', 'केरावारी', 'ग्रामथान', 'जहदा', 'धनपालथान', 'पथरी शनिश्चरे', 'बुढीगंगा', 'बेलवारी', 'मिक्लाजुङ', 'रंगेली', 'रतुवामाई', 'लेटाङ', 'विराटनगर', 'सुनवर्षि', 'सुन्दरहरैचा'],
+                                            "ओखलढुंगा": ['खिजिदेम्बा', 'चम्पादेवी', 'चिशंखुगढी', 'मानेभञ्याङ', 'मोलुङ', 'लिखु', 'सिद्दिचरण', 'सुनकोशी'],
+                                            "पांचथर": ['कुम्मायक', 'तुम्बेवा', 'फालेलुङ', 'फाल्गुनन्द', 'फिदिम', 'मिक्लाजुङ', 'याङवरक', 'हिलिहाङ'],
+                                            "संखुवासभा": ['खाँदवारी', 'चिचिला', 'चैनपुर', 'धर्मदेवी', 'पाँचखपन', 'भोटखोला', 'मकालु', 'मादी', 'सभापोखरी', 'सिलीचोङ'],
+                                            "सोलुखुम्बू": ['खुम्वु पासाङल्हमु', 'थुलुङ दुधकोशी', 'नेचासल्यान', 'माप्य दुधकोशी', 'माहाकुलुङ', 'लिखु पिके', 'सोताङ', 'सोलुदुधकुण्ड'],
+                                            "सुनसरी": ['ईटहरी', 'ईनरुवा', 'कोशी', 'गढी', 'दुहवी', 'देवानगञ्ज', 'धरान', 'बराहक्षेत्र', 'बर्जु', 'भोक्राहा नरसिंह', 'रामधुनी', 'हरिनगर'],
+                                            "ताप्लेजुंग": ['आठराई त्रिवेणी', 'पाथीभरा याङवरक', 'फक्ताङलुङ', 'फुङलिङ', 'मिक्वाखोला', 'मेरिङदेन', 'मैवाखोला', 'सिदिङ्वा', 'सिरीजङ्घा'],
+                                            "तेह्रथुम": ['आठराई', 'छथर', 'फेदाप', 'मेन्छयायेम', 'म्याङलुङ', 'लालीगुराँस'],
+                                            "उदयपुर": ['उदयपुरगढी', 'कटारी', 'चौदण्डीगढी', 'ताप्ली', 'त्रियुगा', 'रौतामाई', 'लिम्चुङ्बुङ', 'वेलका'],
+                                            "पर्सा": ['कालिकामाई', 'छिपहरमाई', 'जगरनाथपुर', 'जिरा भवानी', 'ठोरी', 'धोबीनी', 'पकाहा मैनपुर', 'पटेर्वा सुगौली', 'पर्सागढी', 'पोखरिया', 'बहुदरमाई', 'बिन्दबासिनी', 'बिरगंज', 'सखुवा प्रसौनी'],
+                                            "बारा": ['आदर्श कोटवाल', 'करैयामाई', 'कलैया', 'कोल्हवी', 'जीतपुर सिमरा', 'देवताल', 'निजगढ', 'पचरौता', 'परवानीपुर', 'प्रसौनी', 'फेटा', 'बारागढी', 'महागढीमाई', 'विश्रामपुर', 'सिम्रौनगढ', 'सुवर्ण'],
+                                            "रौतहट": ['ईशनाथ', 'कटहरिया', 'गढीमाई', 'गरुडा', 'गुजरा', 'गौर', 'चन्द्रपुर', 'दुर्गा भगवती', 'देवाही गोनाही', 'परोहा', 'फतुवाबिजयपुर', 'बृन्दावन', 'बौधीमाई', 'माधव नारायण', 'मौलापुर', 'यमुनामाई', 'राजदेवी', 'राजपुर'],
+                                            "सर्लाही": ['ईश्वरपुर', 'कविलासी', 'कौडेना', 'गोडैटा', 'चक्रघट्टा', 'चन्द्रनगर', 'धनकौल', 'पर्सा', 'बरहथवा', 'बलरा', 'बसबरीया', 'बागमती', 'ब्रह्मपुरी', 'मलंगवा', 'रामनगर', 'लालबन्दी', 'विष्णु', 'हरिपुर', 'हरिपुर्वा', 'हरिवन'],
+                                            "सिराहा": ['अर्नमा', 'औरही', 'कर्जन्हा', 'कल्याणपुर', 'गोलबजार', 'धनगढीमाई', 'नरहा', 'नवराजपुर', 'बरियारपट्टी', 'भगवानपुर', 'मिर्चैयाँ', 'लक्ष्मीपुर पतारी', 'लहान', 'विष्णुपुर', 'सखुवानान्कारकट्टी', 'सिरहा', 'सुखीपुर'],
+                                            "धनुषा": ['औरही', 'कमला', 'क्षिरेश्वरनाथ', 'गणेशमान चारनाथ', 'जनकनन्दिनी', 'जनकपुरधाम', 'धनुषाधाम', 'धनौजी', 'नगराइन', 'बटेश्वर', 'मिथिला', 'मिथिला बिहारी', 'मुखियापट्टी मुसहरमिया', 'लक्ष्मीनिया', 'विदेह', 'शहीदनगर', 'सबैला', 'हंसपुर'],
+                                            "सप्तरी": ['अग्निसाइर कृष्णासरवन', 'कञ्चनरुप', 'खडक', 'छिन्नमस्ता', 'डाक्नेश्वरी', 'तिरहुत', 'तिलाठी कोईलाडी', 'बलान-बिहुल', 'बिष्णुपुर', 'बोदेबरसाईन', 'महादेवा', 'राजगढ', 'राजविराज', 'रुपनी', 'शम्भुनाथ', 'सप्तकोशी', 'सुरुङ्\u200dगा', 'हनुमाननगर कङ्\u200cकालिनी'],
+                                            "महोत्तरी": ['एकडारा', 'औरही', 'गौशाला', 'जलेश्वर', 'पिपरा', 'बर्दिबास', 'बलवा', 'भँगाहा', 'मटिहानी', 'मनरा शिसवा', 'महोत्तरी', 'रामगोपालपुर', 'लोहरपट्टी', 'साम्सी', 'सोनमा'],
+                                            "भक्तपुर": ['चाँगुनारायण', 'भक्तपुर', 'मध्यपुर थिमी', 'सूर्यविनायक'],
+                                            "चितवन": ['इच्छाकामना', 'कालिका', 'खैरहनी', 'भरतपुर', 'माडी', 'रत्ननगर', 'राप्ती'],
+                                            "धादिंङ्ग": ['खनियाबास', 'गङ्गाजमुना', 'गजुरी', 'गल्छी', 'ज्वालामूखी', 'त्रिपुरासुन्दरी', 'थाक्रे', 'धुनीबेंशी', 'निलकण्ठ', 'नेत्रावती डबजोङ', 'बेनीघाट रोराङ्ग', 'रुवी भ्याली', 'सिद्धलेक'],
+                                            "दोलखा": ['कालिन्चोक', 'गौरीशङ्कर', 'जिरी', 'तामाकोशी', 'भिमेश्वर', 'मेलुङ्ग', 'विगु', 'वैतेश्वर', 'शैलुङ्ग'],
+                                            "काठमाडौँ": ['कागेश्वरी मनोहरा', 'काठमाण्डौं', 'कीर्तिपुर', 'गोकर्णेश्वर', 'चन्द्रागिरी', 'टोखा', 'तारकेश्वर', 'दक्षिणकाली', 'नागार्जुन', 'बुढानिलकण्ठ', 'शङ्खरापुर'],
+                                            "काभ्रेपलान्चोक": ['खानीखोला', 'चौंरीदेउराली', 'तेमाल', 'धुलिखेल', 'नमोबुद्ध', 'पनौती', 'पाँचखाल', 'बनेपा', 'बेथानचोक', 'भुम्लु', 'मण्डनदेउपुर', 'महाभारत', 'रोशी'],
+                                            "ललितपुर": ['कोन्ज्योसोम', 'गोदावरी', 'बागमती', 'महाङ्काल', 'महालक्ष्मी', 'ललितपुर'],
+                                            "मकवानपुर": ['इन्द्रसरोबर', 'कैलाश', 'थाहा', 'बकैया', 'बाग्मति', 'भिमफेदी', 'मकवानपुरगढी', 'मनहरी', 'राक्सिराङ्ग', 'हेटौडा'],
+                                            "नुवाकोट": ['ककनी', 'किस्पाङ', 'तादी', 'तारकेश्वर', 'दुप्चेश्वर', 'पञ्चकन्या', 'बेलकोटगढी', 'म्यगङ', 'लिखु', 'विदुर', 'शिवपुरी', 'सुर्यगढी'],
+                                            "रामेछाप": ['उमाकुण्ड', 'खाँडादेवी', 'गोकुलगङ्गा', 'दोरम्बा', 'मन्थली', 'रामेछाप', 'लिखु तामाकोशी', 'सुनापती'],
+                                            "रसुवा": ['आमाछोदिङमो', 'उत्तरगया', 'कालिका', 'गोसाईकुण्ड', 'नौकुण्ड'],
+                                            "सिन्धुली": ['कमलामाई', 'गोलन्जर', 'घ्याङलेख', 'तीनपाटन', 'दुधौली', 'फिक्कल', 'मरिण', 'सुनकोशी', 'हरिहरपुरगढी'],
+                                            "सिन्धुपाल्चोक": ['ईन्द्रावती', 'चौतारा साँगाचोकगढी', 'जुगल', 'त्रिपुरासुन्दरी', 'पाँचपोखरी थाङपाल', 'बलेफी', 'बाह्रविसे', 'भोटेकोशी', 'मेलम्ची', 'लिसङ्खु पाखर', 'सुनकोशी', 'हेलम्बु'],
+                                            "बागलुङ": ['काठेखोला', 'गल्कोट', 'जैमूनी', 'ढोरपाटन', 'तमानखोला', 'ताराखोला', 'निसीखोला', 'बागलुङ', 'वडिगाड', 'वरेङ'],
+                                            "गोरखा": ['अजिरकोट', 'आरूघाट', 'गण्डकी', 'गोरखा', 'चुमनुव्री', 'धार्चे', 'पालुङटार', 'बारपाक सुलिकोट', 'भिमसेनथापा', 'शहिद लखन', 'सिरानचोक'],
+                                            "कास्की": ['अन्नपूर्ण', 'पोखरा', 'माछापुच्छ्रे', 'मादी', 'रूपा'],
+                                            "लमजुङ": ['क्व्होलासोथार', 'दूधपोखरी', 'दोर्दी', 'बेसीशहर', 'मध्यनेपाल', 'मर्स्याङदी', 'रारइनास', 'सुन्दरबजार'],
+                                            "मनाङ": ['चामे', 'नार्पा भूमि', 'नासोँ', 'मनाङ ङिस्याङ'],
+                                            "मुस्ताङ": ['घरपझोङ', 'थासाङ', 'लो-घेकर दामोदरकुण्ड', 'लोमन्थाङ', 'वारागुङ मुक्तिक्षेत्र'],
+                                            "म्याग्दी": ['अन्नपुर्ण', 'धवलागिरी', 'बेनी', 'मंगला', 'मालिका', 'रघुगंगा'],
+                                            "नवलपुर": ['कावासोती', 'गैडाकोट', 'देवचुली', 'बुलिङटार', 'बौदीकाली', 'मध्यविन्दु', 'विनयी त्रिवेणी', 'हुप्सेकोट'],
+                                            "पर्वत": ['कुश्मा', 'जलजला', 'पैयूं', 'फलेवास', 'महाशिला', 'मोदी', 'विहादी'],
+                                            "स्याङग्जा": ['अर्जुनचौपारी', 'आँधिखोला', 'कालीगण्डकी', 'गल्याङ', 'चापाकोट', 'पुतलीबजार', 'फेदीखोला', 'बिरुवा', 'भीरकोट', 'वालिङ', 'हरिनास'],
+                                            "तनहुँ": ['आँबुखैरेनी', 'ऋषिङ्ग', 'घिरिङ', 'देवघाट', 'भानु', 'भिमाद', 'म्याग्दे', 'वन्दिपुर', 'व्यास', 'शुक्लागण्डकी'],
+                                            "कपिलवस्तु": ['कपिलवस्तु', 'कृष्णनगर', 'बाणगंगा', 'बुद्धभुमी', 'महाराजगंज', 'मायादेवी', 'यसोधरा', 'विजयनगर', 'शिवराज', 'सुद्धोधन'],
+                                            "परासी": ['पाल्हीनन्दन', 'प्रतापपुर', 'बर्दघाट', 'रामग्राम', 'सरावल', 'सुनवल', 'सुस्ता'],
+                                            "रुपन्देही": ['ओमसतिया', 'कन्चन', 'कोटहीमाई', 'गैडहवा', 'तिलोत्तमा', 'देवदह', 'बुटवल', 'मर्चवारी', 'मायादेवी', 'रोहिणी', 'लुम्बिनी सांस्कृतिक', 'शुद्धोधन', 'सम्मरीमाई', 'सिद्धार्थनगर', 'सियारी', 'सैनामैना'],
+                                            "अर्घाखाँची": ['छत्रदेव', 'पाणिनी', 'भूमिकास्थान', 'मालारानी', 'शितगंगा', 'सन्धिखर्क'],
+                                            "गुल्मी": ['ईस्मा', 'कालीगण्डकी', 'गुल्मी दरबार', 'चन्द्रकोट', 'छत्रकोट', 'धुर्कोट', 'मदाने', 'मालिका', 'मुसिकोट', 'रुरुक्षेत्र', 'रेसुङ्गा', 'सत्यवती'],
+                                            "पाल्पा": ['तानसेन', 'तिनाउ', 'निस्दी', 'पूर्वखोला', 'बगनासकाली', 'माथागढी', 'रम्भा', 'रामपुर', 'रिब्दिकोट', 'रैनादेवी छहरा'],
+                                            "दाङ": ['गढवा', 'घोराही', 'तुल्सीपुर', 'दंगीशरण', 'बंगलाचुली', 'बबई', 'राजपुर', 'राप्ती', 'लमही', 'शान्तिनगर'],
+                                            "प्युठान": ['ऐरावती', 'गौमुखी', 'झिमरुक', 'नौवहिनी', 'प्यूठान', 'मल्लरानी', 'माण्डवी', 'सरुमारानी', 'स्वर्गद्वारी'],
+                                            "रोल्पा": ['गंगादेव', 'त्रिवेणी', 'थवाङ', 'परिवर्तन', 'माडी', 'रुन्टीगढी', 'रोल्पा', 'लुङग्री', 'सुनछहरी', 'सुनिल स्मृति'],
+                                            "पूर्वी रूकुम": ['पुथा उत्तरगंगा', 'भूमे', 'सिस्ने'],
+                                            "बाँके": ['कोहलपुर', 'खजुरा', 'जानकी', 'डुडुवा', 'नरैनापुर', 'नेपालगंज', 'बैजनाथ', 'राप्ती सोनारी'],
+                                            "बर्दिया": ['गुलरिया', 'गेरुवा', 'ठाकुरबाबा', 'बढैयाताल', 'बाँसगढी', 'बारबर्दिया', 'मधुवन', 'राजापुर'],
+                                            "रुकुम पश्चिम": ['आठबिसकोट', 'चौरजहारी', 'त्रिवेणी', 'बाँफिकोट', 'मुसिकोट', 'सानी भेरी'],
+                                            "सल्यान": ['कपुरकोट', 'कालिमाटी', 'कुमाख', 'छत्रेश्वरी', 'त्रिवेणी', 'दार्मा', 'बनगाड कुपिण्डे', 'बागचौर', 'शारदा', 'सिद्ध कुमाख'],
+                                            "डोल्पा": ['काईके', 'छार्का ताङसोङ', 'जगदुल्ला', 'ठूली भेरी', 'डोल्पो बुद्ध', 'त्रिपुरासुन्दरी', 'मुड्केचुला', 'शे फोक्सुन्डो'],
+                                            "हुम्ला": ['अदानचुली', 'खार्पुनाथ', 'चंखेली', 'ताँजाकोट', 'नाम्खा', 'सर्केगाड', 'सिमकोट'],
+                                            "जुम्ला": ['कनकासुन्दरी', 'गुठिचौर', 'चन्दननाथ', 'तातोपानी', 'तिला', 'पातारासी', 'सिंजा', 'हिमा'],
+                                            "कालिकोट": ['खाँडाचक्र', 'तिलागुफा', 'नरहरिनाथ', 'पचालझरना', 'पलाता', 'महावै', 'रास्कोट', 'शुभ कालीका', 'सान्नी त्रिवेणी'],
+                                            "मुगु": ['खत्याड', 'छायाँनाथ रारा', 'मुगुम कार्मारोंग', 'सोरु'],
+                                            "सुर्खेत": ['गुर्भाकोट', 'चिङ्गाड', 'चौकुने', 'पञ्चपुरी', 'बराहताल', 'बीरेन्द्रनगर', 'भेरीगंगा', 'लेकवेशी', 'सिम्ता'],
+                                            "दैलेख": ['आठबीस', 'गुराँस', 'चामुण्डा विन्द्रासैनी', 'ठाँटीकाँध', 'डुंगेश्वर', 'दुल्लु', 'नारायण', 'नौमुले', 'भगवतीमाई', 'भैरवी', 'महावु'],
+                                            "जाजरकोट": ['कुसे', 'छेडागाड', 'जुनीचाँदे', 'नलगाड', 'बारेकोट', 'भेरी', 'शिवालय'],
+                                            "दार्चुला": ['अपिहिमाल', 'दुहुँ', 'नौगाड', 'ब्याँस', 'महाकाली', 'मार्मा', 'मालिकार्जुन', 'लेकम', 'शैल्यशिखर'],
+                                            "बझाङ": ['केदारस्युँ', 'खप्तडछान्ना', 'छबिसपाथिभेरा', 'जयपृथ्वी', 'तलकोट', 'थलारा', 'दुर्गाथली', 'बुंगल', 'मष्टा', 'वित्थडचिर', 'साइपाल', 'सूर्मा'],
+                                            "बाजुरा": ['खप्तड छेडेदह', 'गौमुल', 'जगन्\u200dनाथ', 'त्रिवेणी', 'बडीमालिका', 'बुढीगंगा', 'बुढीनन्दा', 'स्वामीकार्तिक खापर', 'हिमाली'],
+                                            "बैतडी": ['डीलासैनी', 'दशरथचन्द', 'दोगडाकेदार', 'पञ्चेश्वर', 'पाटन', 'पुर्चौडी', 'मेलौली', 'शिवनाथ', 'सिगास', 'सुर्नया'],
+                                            "डोटी": ['आदर्श', 'के.आई.सिं.', 'जोरायल', 'दिपायल सिलगढी', 'पूर्वीचौकी', 'बडीकेदार', 'बोगटान फुड्सिल', 'शिखर', 'सायल'],
+                                            "अछाम": ['कमलबजार', 'चौरपाटी', 'ढकारी', 'तुर्माखाँद', 'पन्चदेवल विनायक', 'बान्निगढी जयगढ', 'मंगलसेन', 'मेल्लेख', 'रामारोशन', 'साँफेबगर'],
+                                            "डडेलधुरा": ['अजयमेरु', 'अमरगढी', 'आलिताल', 'गन्यापधुरा', 'नवदुर्गा', 'परशुराम', 'भागेश्वर'],
+                                            "कञ्चनपुर": ['कृष्णपुर', 'पुर्नवास', 'बेलडाडी', 'बेलौरी', 'भीमदत्त', 'माहाकाली', 'लालझाडी', 'वेदकोट', 'शुक्लाफाँटा'],
+                                            "कैलाली": ['कैलारी', 'गोदावरी', 'गौरीगंगा', 'घोडाघोडी', 'चुरे', 'जानकी', 'जोशीपुर', 'टिकापुर', 'धनगढी', 'बर्दगोरिया', 'भजनी', 'मोहन्याल', 'लम्कीचुहा'],
+
+                                                        // Add other district municipalities here...
+                                                    };
+
+                                                    if (municipalities[selectedDistrict]) {
+                                                        municipalityOptionHTML = municipalities[selectedDistrict].map(municipality => `<option value="${municipality}">${municipality}</option>`).join('');
+                                                    }
+
+                                                    municipalitySelect.innerHTML = `<option value="">Select a  municipality</option>` + municipalityOptionHTML;
+                                                });
+                                            </script>
+
+                                            <!-- Ward Number -->
+                                            <div class="col-12 col-md-4 mb-3">
+                                                <input type="number" name="permanentAddressWardInput" id="permanentAddressWardInput" class="form-control" placeholder="Ward Number">
+                                            </div>
+
+                                            <!-- Tole/Address -->
+                                            <div class="col-12 col-md-4 mb-3">
+                                                <input type="text" name="permanentAddressToleInput" id="permanentAddressToleInput" class="form-control" placeholder="Tole/Address">
+                                            </div>
+
+                                         </div>
+                                        
+                                     </div>
+                                     <div class="col-md-6 col-sm-12 mb-3">
+                                        <label for="bloodgroup">Blood Group</label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="bloodgroup" id="o_positive" value="O+" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                            <label class="form-check-label btn-custom mb-1" for="o_positive">
+                                                O+
+                                            </label>
+                                        
+                                            <input class="form-check-input" type="radio" name="bloodgroup" id="o_negative" value="O-" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                            <label class="form-check-label btn-custom mb-1" for="o_negative">
+                                                O-
+                                            </label>
+                                        
+                                            <input class="form-check-input" type="radio" name="bloodgroup" id="a_positive" value="A+" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                            <label class="form-check-label btn-custom mb-1" for="a_positive">
+                                                A+
+                                            </label>
+                                        
+                                            <input class="form-check-input" type="radio" name="bloodgroup" id="a_negative" value="A-" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                            <label class="form-check-label btn-custom mb-1" for="a_negative">
+                                                A-
+                                            </label>
+                                        
+                                            <input class="form-check-input" type="radio" name="bloodgroup" id="b_positive" value="B+" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                            <label class="form-check-label btn-custom mb-1" for="b_positive">
+                                                B+
+                                            </label>
+                                        
+                                            <input class="form-check-input" type="radio" name="bloodgroup" id="b_negative" value="B-" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                            <label class="form-check-label btn-custom mb-1" for="b_negative">
+                                                B-
+                                            </label>
+                                        
+                                            <input class="form-check-input" type="radio" name="bloodgroup" id="ab_positive" value="AB+" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                            <label class="form-check-label btn-custom mb-1" for="ab_positive">
+                                                AB+
+                                            </label>
+                                        
+                                            <input class="form-check-input" type="radio" name="bloodgroup" id="ab_negative" value="AB-" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                            <label class="form-check-label btn-custom" for="ab_negative">
+                                                AB-
+                                            </label>
+                                        
+                                            
+
+                                                
+                                        </div>
+                                        
+                                        
+                                     </div>
+                                     <div class="col-md-6 col-sm-12 mb-3">
+                                        <label for="gender">Available for Blood Donation?</label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="blood_donation" id="byes" value="Yes" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                            <label class="form-check-label btn-custom" for="byes">
+                                                Yes
+                                            </label>
+                                                                            
+                                            <input class="form-check-input" type="radio" name="blood_donation" id="bno" value="No" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                            <label class="form-check-label btn-custom" for="bno">
+                                                No
+                                            </label>
+
+                                        </div>
+                                     
+                                     </div>
+
+                                     <!-- Current Address -->
+                                     <!-- Provinces -->
+                                     <div class="col-md-12 col-sm-12 mb-3">
+                                        <label for="temporaryAddressStateInput">Current Address</label>
+                                        <div class="row">
+                                            <!-- Province Select -->
+                                            <div class="col-12 col-md-3 mb-3">
+                                                <select name="temporaryAddressStateInput" id="temporaryAddressStateInput" class="form-control" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                                    <option value="" selected disabled>Select Province</option>
+                                                    <option value="koshi">Koshi</option>
+                                                    <option value="madhesh">Madhesh</option>
+                                                    <option value="bagmati">Bagmati</option>
+                                                    <option value="gandaki">Gandaki</option>
+                                                    <option value="lumbini">Lumbini</option>
+                                                    <option value="karnali">Karnali</option>
+                                                    <option value="sudurpaschim">Sudurpaschim</option>
+                                                </select>
+                                            </div>
+
+                                            <!-- District Select -->
+                                            <div class="col-12 col-md-4 mb-3">
+                                                <select name="temporaryAddressDistrictInput" id="temporaryAddressDistrictInput" class="form-control" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                                    <option value="" selected disabled>Select District</option>
+                                                    <!-- District options will be populated dynamically -->
+                                                </select>
+                                            </div>
+
+                                            <script>
+                                                document.addEventListener("DOMContentLoaded", function () {
+                                                    // Populate districts based on selected state
+                                                    const stateSelect = document.getElementById("temporaryAddressStateInput");
+                                                    const districtSelect = document.getElementById("temporaryAddressDistrictInput");
+                                            
+                                                    const districts = {
+                                                        
+                                                        "koshi":["भोजपुर", "धनकुटा", "इलाम", "झापा", "खोटाँग", "मोरंग", "ओखलढुंगा", "पांचथर", "संखुवासभा", "सोलुखुम्बू", "सुनसरी", "ताप्लेजुंग", "तेह्रथुम", "उदयपुर"],
+                                                        "madhesh":["बारा", "धनुषा", "महोत्तरी", "पर्सा", "रौतहट", "सप्तरी", "सर्लाही", "सिराहा"],
+                                                        "bagmati":["काठमाडौँ", "ललितपुर", "भक्तपुर", "मकवानपुर", "चितवन", "काभ्रेपलान्चोक", "सिन्धुपाल्चोक", "दोलखा", "रामेछाप", "रसुवा", "नुवाकोट"],
+                                                        "gandaki":["बागलुङ", "गोरखा", "कास्की", "लमजुङ", "मनाङ", "मुस्ताङ", "म्याग्दी", "नवलपुर", "पर्वत", "स्याङग्जा", "तनहुँ"],
+                                                        "lumbini":["अर्घाखाँची", "बाँके", "बर्दिया", "दाङ", "गुल्मी", "कपिलवस्तु", "परासी", "पाल्पा", "प्युठान", "रोल्पा", "पूर्वी रूकुम", "रुपन्देही"],
+                                                        "karnali":["दैलेख", "डोल्पा", "हुम्ला", "जाजरकोट", "जुम्ला", "कालिकोट", "मुगु", "रुकुम पश्चिम", "सल्यान", "सुर्खेत"],
+                                                        "sudurpaschim":["अछाम", "बैतडी", "बझाङ", "बाजुरा", "डोटी", "कैलाली", "कञ्चनपुर"]
+                                                    };
+                                            
+                                                    // Populate initial district options if state is selected
+                                                    stateSelect.addEventListener("change", function () {
+                                                        let selectedState = this.value;
+                                                        let districtOptions = districts[selectedState] || [];
+                                                        let districtOptionHTML = districtOptions.map(district => `<option value="${district}">${district}</option>`).join('');
+                                                        districtSelect.innerHTML = `<option value="">Select a district</option>` + districtOptionHTML;
+                                            
+                                                        // Clear the municipality dropdown
+                                                        document.getElementById("temporaryAddressMunicipalityInput").innerHTML = `<option value="">Select a  municipality</option>`;
+                                                    });
+                                            
+                                                    // Initial trigger to populate districts if default state is set
+                                                    stateSelect.dispatchEvent(new Event('change'));
+                                                });
+                                            </script>
+
+
+                                            <!-- Municipality Select -->
+                                            <div class="col-12 col-md-4 mb-3">
+                                                <select name="temporaryAddressMunicipalityInput" id="temporaryAddressMunicipalityInput" class="form-control" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                                    <option value="" selected disabled>Select Municipality</option>
+                                                    <!-- Municipality options will be populated dynamically -->
+                                                </select>
+                                            </div>
+
+                                            <script>
+                                                document.getElementById("temporaryAddressDistrictInput").addEventListener("change", function () {
+                                                    let selectedDistrict = this.value;
+                                                    let municipalitySelect = document.getElementById("temporaryAddressMunicipalityInput");
+                                                    let municipalityOptionHTML = "";
+
+                                                    const municipalities = {
+                                                    "भोजपुर": ['अरुण', 'आमचोक', 'टेम्केमैयुङ', 'पौवादुङमा', 'भोजपुर', 'रामप्रसाद राई', 'षडानन्द', 'साल्पासिलिछो', 'हतुवागढी'],
+                                            "धनकुटा": ['चौविसे', 'छथर जोरपाटी', 'धनकुटा', 'पाख्रिबास', 'महालक्ष्मी', 'सहिदभूमि', 'साँगुरीगढी'],
+                                            "इलाम": ['ईलाम', 'चुलाचुली', 'देउमाई', 'फाकफोकथुम', 'माई', 'माईजोगमाई', 'माङसेबुङ', 'रोङ', 'सन्दकपुर', 'सूर्योदय'],
+                                            "झापा": ['अर्जुनधारा', 'कचनकवल', 'कन्काई', 'कमल', 'गौरादह', 'गौरीगंज', 'झापा', 'दमक', 'बाह्रदशी', 'बुद्धशान्ति', 'भद्रपुर', 'मेचीनगर', 'विर्तामोड', 'शिवशताक्षी', 'हल्दिवारी'],
+                                            "खोटाँग": ['ऐसेलुखर्क', 'केपिलासगढी', 'खोटेहाङ', 'जन्तेढुंगा', 'दिक्तेल रुपाकोट मझुवागढी', 'दिप्रुङ चुइचुम्मा', 'रावा बेसी', 'वराहपोखरी', 'साकेला', 'हलेसी तुवाचुङ'],
+                                            "मोरंग": ['उर्लावारी', 'कटहरी', 'कानेपोखरी', 'केरावारी', 'ग्रामथान', 'जहदा', 'धनपालथान', 'पथरी शनिश्चरे', 'बुढीगंगा', 'बेलवारी', 'मिक्लाजुङ', 'रंगेली', 'रतुवामाई', 'लेटाङ', 'विराटनगर', 'सुनवर्षि', 'सुन्दरहरैचा'],
+                                            "ओखलढुंगा": ['खिजिदेम्बा', 'चम्पादेवी', 'चिशंखुगढी', 'मानेभञ्याङ', 'मोलुङ', 'लिखु', 'सिद्दिचरण', 'सुनकोशी'],
+                                            "पांचथर": ['कुम्मायक', 'तुम्बेवा', 'फालेलुङ', 'फाल्गुनन्द', 'फिदिम', 'मिक्लाजुङ', 'याङवरक', 'हिलिहाङ'],
+                                            "संखुवासभा": ['खाँदवारी', 'चिचिला', 'चैनपुर', 'धर्मदेवी', 'पाँचखपन', 'भोटखोला', 'मकालु', 'मादी', 'सभापोखरी', 'सिलीचोङ'],
+                                            "सोलुखुम्बू": ['खुम्वु पासाङल्हमु', 'थुलुङ दुधकोशी', 'नेचासल्यान', 'माप्य दुधकोशी', 'माहाकुलुङ', 'लिखु पिके', 'सोताङ', 'सोलुदुधकुण्ड'],
+                                            "सुनसरी": ['ईटहरी', 'ईनरुवा', 'कोशी', 'गढी', 'दुहवी', 'देवानगञ्ज', 'धरान', 'बराहक्षेत्र', 'बर्जु', 'भोक्राहा नरसिंह', 'रामधुनी', 'हरिनगर'],
+                                            "ताप्लेजुंग": ['आठराई त्रिवेणी', 'पाथीभरा याङवरक', 'फक्ताङलुङ', 'फुङलिङ', 'मिक्वाखोला', 'मेरिङदेन', 'मैवाखोला', 'सिदिङ्वा', 'सिरीजङ्घा'],
+                                            "तेह्रथुम": ['आठराई', 'छथर', 'फेदाप', 'मेन्छयायेम', 'म्याङलुङ', 'लालीगुराँस'],
+                                            "उदयपुर": ['उदयपुरगढी', 'कटारी', 'चौदण्डीगढी', 'ताप्ली', 'त्रियुगा', 'रौतामाई', 'लिम्चुङ्बुङ', 'वेलका'],
+                                            "पर्सा": ['कालिकामाई', 'छिपहरमाई', 'जगरनाथपुर', 'जिरा भवानी', 'ठोरी', 'धोबीनी', 'पकाहा मैनपुर', 'पटेर्वा सुगौली', 'पर्सागढी', 'पोखरिया', 'बहुदरमाई', 'बिन्दबासिनी', 'बिरगंज', 'सखुवा प्रसौनी'],
+                                            "बारा": ['आदर्श कोटवाल', 'करैयामाई', 'कलैया', 'कोल्हवी', 'जीतपुर सिमरा', 'देवताल', 'निजगढ', 'पचरौता', 'परवानीपुर', 'प्रसौनी', 'फेटा', 'बारागढी', 'महागढीमाई', 'विश्रामपुर', 'सिम्रौनगढ', 'सुवर्ण'],
+                                            "रौतहट": ['ईशनाथ', 'कटहरिया', 'गढीमाई', 'गरुडा', 'गुजरा', 'गौर', 'चन्द्रपुर', 'दुर्गा भगवती', 'देवाही गोनाही', 'परोहा', 'फतुवाबिजयपुर', 'बृन्दावन', 'बौधीमाई', 'माधव नारायण', 'मौलापुर', 'यमुनामाई', 'राजदेवी', 'राजपुर'],
+                                            "सर्लाही": ['ईश्वरपुर', 'कविलासी', 'कौडेना', 'गोडैटा', 'चक्रघट्टा', 'चन्द्रनगर', 'धनकौल', 'पर्सा', 'बरहथवा', 'बलरा', 'बसबरीया', 'बागमती', 'ब्रह्मपुरी', 'मलंगवा', 'रामनगर', 'लालबन्दी', 'विष्णु', 'हरिपुर', 'हरिपुर्वा', 'हरिवन'],
+                                            "सिराहा": ['अर्नमा', 'औरही', 'कर्जन्हा', 'कल्याणपुर', 'गोलबजार', 'धनगढीमाई', 'नरहा', 'नवराजपुर', 'बरियारपट्टी', 'भगवानपुर', 'मिर्चैयाँ', 'लक्ष्मीपुर पतारी', 'लहान', 'विष्णुपुर', 'सखुवानान्कारकट्टी', 'सिरहा', 'सुखीपुर'],
+                                            "धनुषा": ['औरही', 'कमला', 'क्षिरेश्वरनाथ', 'गणेशमान चारनाथ', 'जनकनन्दिनी', 'जनकपुरधाम', 'धनुषाधाम', 'धनौजी', 'नगराइन', 'बटेश्वर', 'मिथिला', 'मिथिला बिहारी', 'मुखियापट्टी मुसहरमिया', 'लक्ष्मीनिया', 'विदेह', 'शहीदनगर', 'सबैला', 'हंसपुर'],
+                                            "सप्तरी": ['अग्निसाइर कृष्णासरवन', 'कञ्चनरुप', 'खडक', 'छिन्नमस्ता', 'डाक्नेश्वरी', 'तिरहुत', 'तिलाठी कोईलाडी', 'बलान-बिहुल', 'बिष्णुपुर', 'बोदेबरसाईन', 'महादेवा', 'राजगढ', 'राजविराज', 'रुपनी', 'शम्भुनाथ', 'सप्तकोशी', 'सुरुङ्\u200dगा', 'हनुमाननगर कङ्\u200cकालिनी'],
+                                            "महोत्तरी": ['एकडारा', 'औरही', 'गौशाला', 'जलेश्वर', 'पिपरा', 'बर्दिबास', 'बलवा', 'भँगाहा', 'मटिहानी', 'मनरा शिसवा', 'महोत्तरी', 'रामगोपालपुर', 'लोहरपट्टी', 'साम्सी', 'सोनमा'],
+                                            "भक्तपुर": ['चाँगुनारायण', 'भक्तपुर', 'मध्यपुर थिमी', 'सूर्यविनायक'],
+                                            "चितवन": ['इच्छाकामना', 'कालिका', 'खैरहनी', 'भरतपुर', 'माडी', 'रत्ननगर', 'राप्ती'],
+                                            "धादिंङ्ग": ['खनियाबास', 'गङ्गाजमुना', 'गजुरी', 'गल्छी', 'ज्वालामूखी', 'त्रिपुरासुन्दरी', 'थाक्रे', 'धुनीबेंशी', 'निलकण्ठ', 'नेत्रावती डबजोङ', 'बेनीघाट रोराङ्ग', 'रुवी भ्याली', 'सिद्धलेक'],
+                                            "दोलखा": ['कालिन्चोक', 'गौरीशङ्कर', 'जिरी', 'तामाकोशी', 'भिमेश्वर', 'मेलुङ्ग', 'विगु', 'वैतेश्वर', 'शैलुङ्ग'],
+                                            "काठमाडौँ": ['कागेश्वरी मनोहरा', 'काठमाण्डौं', 'कीर्तिपुर', 'गोकर्णेश्वर', 'चन्द्रागिरी', 'टोखा', 'तारकेश्वर', 'दक्षिणकाली', 'नागार्जुन', 'बुढानिलकण्ठ', 'शङ्खरापुर'],
+                                            "काभ्रेपलान्चोक": ['खानीखोला', 'चौंरीदेउराली', 'तेमाल', 'धुलिखेल', 'नमोबुद्ध', 'पनौती', 'पाँचखाल', 'बनेपा', 'बेथानचोक', 'भुम्लु', 'मण्डनदेउपुर', 'महाभारत', 'रोशी'],
+                                            "ललितपुर": ['कोन्ज्योसोम', 'गोदावरी', 'बागमती', 'महाङ्काल', 'महालक्ष्मी', 'ललितपुर'],
+                                            "मकवानपुर": ['इन्द्रसरोबर', 'कैलाश', 'थाहा', 'बकैया', 'बाग्मति', 'भिमफेदी', 'मकवानपुरगढी', 'मनहरी', 'राक्सिराङ्ग', 'हेटौडा'],
+                                            "नुवाकोट": ['ककनी', 'किस्पाङ', 'तादी', 'तारकेश्वर', 'दुप्चेश्वर', 'पञ्चकन्या', 'बेलकोटगढी', 'म्यगङ', 'लिखु', 'विदुर', 'शिवपुरी', 'सुर्यगढी'],
+                                            "रामेछाप": ['उमाकुण्ड', 'खाँडादेवी', 'गोकुलगङ्गा', 'दोरम्बा', 'मन्थली', 'रामेछाप', 'लिखु तामाकोशी', 'सुनापती'],
+                                            "रसुवा": ['आमाछोदिङमो', 'उत्तरगया', 'कालिका', 'गोसाईकुण्ड', 'नौकुण्ड'],
+                                            "सिन्धुली": ['कमलामाई', 'गोलन्जर', 'घ्याङलेख', 'तीनपाटन', 'दुधौली', 'फिक्कल', 'मरिण', 'सुनकोशी', 'हरिहरपुरगढी'],
+                                            "सिन्धुपाल्चोक": ['ईन्द्रावती', 'चौतारा साँगाचोकगढी', 'जुगल', 'त्रिपुरासुन्दरी', 'पाँचपोखरी थाङपाल', 'बलेफी', 'बाह्रविसे', 'भोटेकोशी', 'मेलम्ची', 'लिसङ्खु पाखर', 'सुनकोशी', 'हेलम्बु'],
+                                            "बागलुङ": ['काठेखोला', 'गल्कोट', 'जैमूनी', 'ढोरपाटन', 'तमानखोला', 'ताराखोला', 'निसीखोला', 'बागलुङ', 'वडिगाड', 'वरेङ'],
+                                            "गोरखा": ['अजिरकोट', 'आरूघाट', 'गण्डकी', 'गोरखा', 'चुमनुव्री', 'धार्चे', 'पालुङटार', 'बारपाक सुलिकोट', 'भिमसेनथापा', 'शहिद लखन', 'सिरानचोक'],
+                                            "कास्की": ['अन्नपूर्ण', 'पोखरा', 'माछापुच्छ्रे', 'मादी', 'रूपा'],
+                                            "लमजुङ": ['क्व्होलासोथार', 'दूधपोखरी', 'दोर्दी', 'बेसीशहर', 'मध्यनेपाल', 'मर्स्याङदी', 'रारइनास', 'सुन्दरबजार'],
+                                            "मनाङ": ['चामे', 'नार्पा भूमि', 'नासोँ', 'मनाङ ङिस्याङ'],
+                                            "मुस्ताङ": ['घरपझोङ', 'थासाङ', 'लो-घेकर दामोदरकुण्ड', 'लोमन्थाङ', 'वारागुङ मुक्तिक्षेत्र'],
+                                            "म्याग्दी": ['अन्नपुर्ण', 'धवलागिरी', 'बेनी', 'मंगला', 'मालिका', 'रघुगंगा'],
+                                            "नवलपुर": ['कावासोती', 'गैडाकोट', 'देवचुली', 'बुलिङटार', 'बौदीकाली', 'मध्यविन्दु', 'विनयी त्रिवेणी', 'हुप्सेकोट'],
+                                            "पर्वत": ['कुश्मा', 'जलजला', 'पैयूं', 'फलेवास', 'महाशिला', 'मोदी', 'विहादी'],
+                                            "स्याङग्जा": ['अर्जुनचौपारी', 'आँधिखोला', 'कालीगण्डकी', 'गल्याङ', 'चापाकोट', 'पुतलीबजार', 'फेदीखोला', 'बिरुवा', 'भीरकोट', 'वालिङ', 'हरिनास'],
+                                            "तनहुँ": ['आँबुखैरेनी', 'ऋषिङ्ग', 'घिरिङ', 'देवघाट', 'भानु', 'भिमाद', 'म्याग्दे', 'वन्दिपुर', 'व्यास', 'शुक्लागण्डकी'],
+                                            "कपिलवस्तु": ['कपिलवस्तु', 'कृष्णनगर', 'बाणगंगा', 'बुद्धभुमी', 'महाराजगंज', 'मायादेवी', 'यसोधरा', 'विजयनगर', 'शिवराज', 'सुद्धोधन'],
+                                            "परासी": ['पाल्हीनन्दन', 'प्रतापपुर', 'बर्दघाट', 'रामग्राम', 'सरावल', 'सुनवल', 'सुस्ता'],
+                                            "रुपन्देही": ['ओमसतिया', 'कन्चन', 'कोटहीमाई', 'गैडहवा', 'तिलोत्तमा', 'देवदह', 'बुटवल', 'मर्चवारी', 'मायादेवी', 'रोहिणी', 'लुम्बिनी सांस्कृतिक', 'शुद्धोधन', 'सम्मरीमाई', 'सिद्धार्थनगर', 'सियारी', 'सैनामैना'],
+                                            "अर्घाखाँची": ['छत्रदेव', 'पाणिनी', 'भूमिकास्थान', 'मालारानी', 'शितगंगा', 'सन्धिखर्क'],
+                                            "गुल्मी": ['ईस्मा', 'कालीगण्डकी', 'गुल्मी दरबार', 'चन्द्रकोट', 'छत्रकोट', 'धुर्कोट', 'मदाने', 'मालिका', 'मुसिकोट', 'रुरुक्षेत्र', 'रेसुङ्गा', 'सत्यवती'],
+                                            "पाल्पा": ['तानसेन', 'तिनाउ', 'निस्दी', 'पूर्वखोला', 'बगनासकाली', 'माथागढी', 'रम्भा', 'रामपुर', 'रिब्दिकोट', 'रैनादेवी छहरा'],
+                                            "दाङ": ['गढवा', 'घोराही', 'तुल्सीपुर', 'दंगीशरण', 'बंगलाचुली', 'बबई', 'राजपुर', 'राप्ती', 'लमही', 'शान्तिनगर'],
+                                            "प्युठान": ['ऐरावती', 'गौमुखी', 'झिमरुक', 'नौवहिनी', 'प्यूठान', 'मल्लरानी', 'माण्डवी', 'सरुमारानी', 'स्वर्गद्वारी'],
+                                            "रोल्पा": ['गंगादेव', 'त्रिवेणी', 'थवाङ', 'परिवर्तन', 'माडी', 'रुन्टीगढी', 'रोल्पा', 'लुङग्री', 'सुनछहरी', 'सुनिल स्मृति'],
+                                            "पूर्वी रूकुम": ['पुथा उत्तरगंगा', 'भूमे', 'सिस्ने'],
+                                            "बाँके": ['कोहलपुर', 'खजुरा', 'जानकी', 'डुडुवा', 'नरैनापुर', 'नेपालगंज', 'बैजनाथ', 'राप्ती सोनारी'],
+                                            "बर्दिया": ['गुलरिया', 'गेरुवा', 'ठाकुरबाबा', 'बढैयाताल', 'बाँसगढी', 'बारबर्दिया', 'मधुवन', 'राजापुर'],
+                                            "रुकुम पश्चिम": ['आठबिसकोट', 'चौरजहारी', 'त्रिवेणी', 'बाँफिकोट', 'मुसिकोट', 'सानी भेरी'],
+                                            "सल्यान": ['कपुरकोट', 'कालिमाटी', 'कुमाख', 'छत्रेश्वरी', 'त्रिवेणी', 'दार्मा', 'बनगाड कुपिण्डे', 'बागचौर', 'शारदा', 'सिद्ध कुमाख'],
+                                            "डोल्पा": ['काईके', 'छार्का ताङसोङ', 'जगदुल्ला', 'ठूली भेरी', 'डोल्पो बुद्ध', 'त्रिपुरासुन्दरी', 'मुड्केचुला', 'शे फोक्सुन्डो'],
+                                            "हुम्ला": ['अदानचुली', 'खार्पुनाथ', 'चंखेली', 'ताँजाकोट', 'नाम्खा', 'सर्केगाड', 'सिमकोट'],
+                                            "जुम्ला": ['कनकासुन्दरी', 'गुठिचौर', 'चन्दननाथ', 'तातोपानी', 'तिला', 'पातारासी', 'सिंजा', 'हिमा'],
+                                            "कालिकोट": ['खाँडाचक्र', 'तिलागुफा', 'नरहरिनाथ', 'पचालझरना', 'पलाता', 'महावै', 'रास्कोट', 'शुभ कालीका', 'सान्नी त्रिवेणी'],
+                                            "मुगु": ['खत्याड', 'छायाँनाथ रारा', 'मुगुम कार्मारोंग', 'सोरु'],
+                                            "सुर्खेत": ['गुर्भाकोट', 'चिङ्गाड', 'चौकुने', 'पञ्चपुरी', 'बराहताल', 'बीरेन्द्रनगर', 'भेरीगंगा', 'लेकवेशी', 'सिम्ता'],
+                                            "दैलेख": ['आठबीस', 'गुराँस', 'चामुण्डा विन्द्रासैनी', 'ठाँटीकाँध', 'डुंगेश्वर', 'दुल्लु', 'नारायण', 'नौमुले', 'भगवतीमाई', 'भैरवी', 'महावु'],
+                                            "जाजरकोट": ['कुसे', 'छेडागाड', 'जुनीचाँदे', 'नलगाड', 'बारेकोट', 'भेरी', 'शिवालय'],
+                                            "दार्चुला": ['अपिहिमाल', 'दुहुँ', 'नौगाड', 'ब्याँस', 'महाकाली', 'मार्मा', 'मालिकार्जुन', 'लेकम', 'शैल्यशिखर'],
+                                            "बझाङ": ['केदारस्युँ', 'खप्तडछान्ना', 'छबिसपाथिभेरा', 'जयपृथ्वी', 'तलकोट', 'थलारा', 'दुर्गाथली', 'बुंगल', 'मष्टा', 'वित्थडचिर', 'साइपाल', 'सूर्मा'],
+                                            "बाजुरा": ['खप्तड छेडेदह', 'गौमुल', 'जगन्\u200dनाथ', 'त्रिवेणी', 'बडीमालिका', 'बुढीगंगा', 'बुढीनन्दा', 'स्वामीकार्तिक खापर', 'हिमाली'],
+                                            "बैतडी": ['डीलासैनी', 'दशरथचन्द', 'दोगडाकेदार', 'पञ्चेश्वर', 'पाटन', 'पुर्चौडी', 'मेलौली', 'शिवनाथ', 'सिगास', 'सुर्नया'],
+                                            "डोटी": ['आदर्श', 'के.आई.सिं.', 'जोरायल', 'दिपायल सिलगढी', 'पूर्वीचौकी', 'बडीकेदार', 'बोगटान फुड्सिल', 'शिखर', 'सायल'],
+                                            "अछाम": ['कमलबजार', 'चौरपाटी', 'ढकारी', 'तुर्माखाँद', 'पन्चदेवल विनायक', 'बान्निगढी जयगढ', 'मंगलसेन', 'मेल्लेख', 'रामारोशन', 'साँफेबगर'],
+                                            "डडेलधुरा": ['अजयमेरु', 'अमरगढी', 'आलिताल', 'गन्यापधुरा', 'नवदुर्गा', 'परशुराम', 'भागेश्वर'],
+                                            "कञ्चनपुर": ['कृष्णपुर', 'पुर्नवास', 'बेलडाडी', 'बेलौरी', 'भीमदत्त', 'माहाकाली', 'लालझाडी', 'वेदकोट', 'शुक्लाफाँटा'],
+                                            "कैलाली": ['कैलारी', 'गोदावरी', 'गौरीगंगा', 'घोडाघोडी', 'चुरे', 'जानकी', 'जोशीपुर', 'टिकापुर', 'धनगढी', 'बर्दगोरिया', 'भजनी', 'मोहन्याल', 'लम्कीचुहा'],
+
+                                                        // Add other district municipalities here...
+                                                    };
+
+                                                    if (municipalities[selectedDistrict]) {
+                                                        municipalityOptionHTML = municipalities[selectedDistrict].map(municipality => `<option value="${municipality}">${municipality}</option>`).join('');
+                                                    }
+
+                                                    municipalitySelect.innerHTML = `<option value="">Select a  municipality</option>` + municipalityOptionHTML;
+                                                });
+                                            </script>
+
+                                            <!-- Ward Number -->
+                                            <div class="col-12 col-md-4 mb-3">
+                                                <input type="number" name="temporaryAddressWardInput" id="temporaryAddressWardInput" class="form-control" placeholder="Ward Number">
+                                            </div>
+
+                                            <!-- Tole/Address -->
+                                            <div class="col-12 col-md-4 mb-3">
+                                                <input type="text" name="temporaryAddressToleInput" id="temporaryAddressToleInput" class="form-control" placeholder="Tole/Address">
+                                            </div>
+
+                                         </div>
+                                        
+                                     </div>
+
+                                     <div class="col-md-6 col-sm-12 mb-3">
+                                        <label for="bloodgroup">Joined in social media group (multiple selection possible)</label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="socialMediaGroup" id="l_g" value="Learning ग्रुप" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                            <label class="form-check-label btn-custom mb-1" for="l_g">
+                                                Learning ग्रुप
+                                            </label>
+                                        
+                                            <input class="form-check-input" type="checkbox" name="socialMediaGroup" id="s_m" value="Social Media Group" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                            <label class="form-check-label btn-custom mb-1" for="s_m">
+                                                Social Media Group
+                                            </label>
+                                        
+                                            <input class="form-check-input" type="checkbox" name="socialMediaGroup" id="b_o" value="Book Order" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                            <label class="form-check-label btn-custom mb-1" for="b_o">
+                                                Book Order
+                                            </label>
+                                        
+                                            <input class="form-check-input" type="checkbox" name="socialMediaGroup" id="t_t" value="Trend Team" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                            <label class="form-check-label btn-custom mb-1" for="t_t">
+                                                Trend Team
+                                            </label>
+                                        
+                                            <input class="form-check-input" type="checkbox" name="socialMediaGroup" id="n_s" value="Nepal Special Trend Team" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                            <label class="form-check-label btn-custom mb-1" for="n_s">
+                                                Nepal Special Trend Team
+                                            </label>
+                                        
+                                            <input class="form-check-input" type="checkbox" name="socialMediaGroup" id="p_g" value="Platform Group (YouTube, Twitter, Facebook, Instagram, Pinterest)" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                            <label class="form-check-label btn-custom" for="p_g">
+                                                Platform Group (YouTube, Twitter, Facebook, Instagram, Pinterest)
+                                            </label>
+                                        
+                                              
+                                        </div>
+                                        
+                                        
+                                     </div>
+                                     <div class="col-md-6 col-sm-12 mb-3">
+                                        <label for="gender">Social Media Sewa Status</label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="social_status" id="adsr" value="Actively Daily Sending Report" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                            <label class="form-check-label btn-custom mb-1" for="adsr">
+                                                Actively Daily Sending Report
+                                            </label>
+                                                                            
+                                            <input class="form-check-input" type="radio" name="social_status" id="absdnsr" value="Active but some days not sending report" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                            <label class="form-check-label btn-custom mb-1" for="absdnsr">
+                                                Active but some days not sending report
+                                            </label>
+
+                                            <input class="form-check-input" type="radio" name="social_status" id="na" value="Not Active" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                            <label class="form-check-label btn-custom" for="na">
+                                                Not Active
+                                            </label>
+
+                                        </div>
+                                     
+                                     </div>
+
+                                     <div class="col-md-6 col-sm-12 mb-3">
+                                        <label for="bloodgroup">Additional Sewa of district/state social media (multiple selection possible)</label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="AdditionalSewa" id="re_ma" value="Report making" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                            <label class="form-check-label btn-custom mb-1" for="re_ma">
+                                                Report making
+                                            </label>
+                                        
+                                            <input class="form-check-input" type="checkbox" name="AdditionalSewa" id="so_me" value="Social Media Group" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                            <label class="form-check-label btn-custom mb-1" for="so_me">
+                                                Reporting
+                                            </label>
+                                        
+                                            <input class="form-check-input" type="checkbox" name="AdditionalSewa" id="ca_ma" value="Cameraman" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                            <label class="form-check-label btn-custom mb-1" for="ca_ma">
+                                                Cameraman
+                                            </label>
+                                        
+                                            <input class="form-check-input" type="checkbox" name="AdditionalSewa" id="other" value="Other" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                            <label class="form-check-label btn-custom mb-1" for="other">
+                                                Other
+                                            </label>
+                                        
+                                            <input class="form-check-input" type="checkbox" name="AdditionalSewa" id="a_no" value="No" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                            <label class="form-check-label btn-custom mb-1" for="a_no">
+                                                No
+                                            </label>   
+                                        </div>
+                                     </div>
+
+                                     <div class="col-md-6 col-sm-12 mb-3">
+                                        <label for="sms_status">SMS Sewa Status</label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="sms_status" id="no_in" value="Not Involved" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                            <label class="form-check-label btn-custom mb-1" for="no_in">
+                                                Not Involved
+                                            </label>
+                                                                            
+                                            <input class="form-check-input" type="radio" name="sms_status" id="ac_re" value="Actively Responsing" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                            <label class="form-check-label btn-custom mb-1" for="ac_re">
+                                                Actively Responsing
+                                            </label>
+
+                                            <input class="form-check-input" type="radio" name="sms_status" id="ac_bnre" value="Active but not reporting" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                            <label class="form-check-label btn-custom mb-1" for="ac_bnre">
+                                                Active but not reporting
+                                            </label>
+
+                                            <input class="form-check-input" type="radio" name="sms_status" id="no_ac" value="Not Active" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                            <label class="form-check-label btn-custom" for="no_ac">
+                                                Not Active
+                                            </label>
+
+
+
+                                        </div>
+                                     
+                                     </div>
+
+                                     <div class="col-md-6 col-sm-12 mb-3">
+                                        <div class="mb-3">
+                                            <label for="smsSewaGroupInput" class="form-label">Any Joined Group Name of SMS Sewa</label>
+                                            <input type="text" class="form-control" name="smsSewaGroupInput" id="smsSewaGroupInput" placeholder="Enter all the name of the group">
+                                        </div>
+                                     </div>
+
+                                     <div class="col-md-6 col-sm-12 mb-3">
+                                        <div class="mb-3">
+                                            <label for="specialSewaSMSInput" class="form-label">Any Special Sewa in SMS</label>
+                                            <input type="text" class="form-control" name="specialSewaSMSInput" id="specialSewaSMSInput" placeholder="Enter any special Sewa in SMS">
+                                        </div>
+                                     </div>
+                                
+                                     <div class="col-md-6 col-sm-12 mb-3">
+                                        <label for="gender">SMS Calling Sewa?</label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="calling_sewa" id="cal_sew_y" value="Yes" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                            <label class="form-check-label btn-custom" for="cal_sew_y">
+                                                Yes
+                                            </label>
+                                                                            
+                                            <input class="form-check-input" type="radio" name="calling_sewa" id="cal_sew_n" value="No" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                            <label class="form-check-label btn-custom" for="cal_sew_n">
+                                                No
+                                            </label>
+
+                                        </div>
+                                     
+                                     </div>
+
+                                     <div class="col-md-6 col-sm-12 mb-3">
+                                        <label for="gender">SMS Feedback Calling Sewa?</label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="feedback_calling_sewa" id="f_cal_sew_y" value="Yes" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                            <label class="form-check-label btn-custom" for="f_cal_sew_y">
+                                                Yes
+                                            </label>
+                                                                            
+                                            <input class="form-check-input" type="radio" name="feedback_calling_sewa" id="f_cal_sew_n" value="No" data-parsley-required-message="This field is required." data-parsley-required="true">
+                                            <label class="form-check-label btn-custom" for="f_cal_sew_n">
+                                                No
+                                            </label>
+
+                                        </div>
+                                        
+                                     
+                                     </div>
+
+                                     <div class="col-md-6 col-sm-12 mb-3">
+                                        <div class="mb-3">
+                                            <label for="otherSewaResponsibilityInput" class="form-label">Any other Sewa responsibility?</label>
+                                            <input type="text" class="form-control" name="otherSewaResponsibilityInput" id="otherSewaResponsibilityInput" placeholder="Enter any other Sewa responsibility">
+                                        </div>
+                                     </div>
+
+                                </div>
+
+                                <button type="submit" id="submitBtn" class="mt-2 p-12 btn btn-primary w-100">
+                                    <span id="btnText">Submit</span>
+                                    <span id="btnLoader" class="spinner-border spinner-border-sm" style="display: none;"></span>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const inputField = document.getElementById('id_phone');
+
+        inputField.addEventListener('input', function (e) {
+            const value = inputField.value;
+            if (value.length > 10) {
+                inputField.value = value.slice(0, 10);
             }
         });
-    </script>
- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-</head>
-<body>
- 
-    <div class="container mt-5">
-        <form>
-            <div class="mb-3">
-                <label for="nameInput" class="form-label">Name</label>
-                <input type="text" class="form-control" id="nameInput" placeholder="Enter your name">
-            </div>
-            <div class="mb-3">
-                <label for="ageInput" class="form-label">Age</label>
-                <input type="date"  class="form-control" id="ageInput" placeholder="Enter your age">
-            </div>
-            <style>
-                input[type="date"] {
-                    width: 100%; /* Ensure the input takes the full width */
-                    font-size: 16px; /* Increase font size for better touch interaction */
-                }
-            
-                /* Responsive Design */
-                @media (max-width: 768px) {
-                    .form-control {
-                        font-size: 16px; /* Adjust font size for mobile */
-                    }
-                }
-            </style>
-            <div class="mb-3">
-                <label for="nameType" class="form-label">Name Type</label>
-                <div id="nameTypeButtons">
-                    <button type="button" class="btn btn-outline-primary text-black" data-value="pratham">Pratham</button>
-                    <button type="button" class="btn btn-outline-primary text-black" data-value="satnam">Satnam</button>
-                    <button type="button" class="btn btn-outline-primary text-black" data-value="sarnam">Sarnam</button>
-                </div>
-            </div>
-            
-            <script>
-                // Get all the buttons
-                const buttons = document.querySelectorAll('#nameTypeButtons button');
-
-                // Check if buttons is not undefined
-                if (buttons) {
-                    // Loop through each button and add an event listener
-                    buttons.forEach(button => {
-                        button.addEventListener('click', function() {
-                            // Get the value associated with the button clicked
-                            const selectedValue = this.getAttribute('data-value');
-                            
-                            // You can perform your action here with the selected value
-                            console.log('Selected Name Type:', selectedValue);
-                            
-                            // Optionally, change the style of the buttons to show which one is selected
-                            buttons.forEach(btn => {
-                                btn.classList.remove('btn-primary');  // Remove the selected style
-                                btn.classList.add('btn-outline-primary');  // Reset to the default state
-                            }); 
-                            this.classList.remove('btn-outline-primary'); // Remove default style
-                            this.classList.add('btn-primary');  // Apply primary style
-                        });
-                    });
-                } else {
-                    console.log("nametypebuttons is undefined");
-                }
-            </script>
-            
-            
-            <div class="mb-3">
-                <label for="ageInput" class="form-label">Pratham Name liyeko Date</label>
-                <input type="date" class="form-control" id="prathamnameInput" placeholder="Enter Pratham Name liyeko Date">
-            </div>
-            <div class="mb-3">
-                <label for="whatsappInput" class="form-label">WhatsApp Number</label>
-                <input type="number" class="form-control" id="whatsappInput" placeholder="Enter your whatsapp number" pattern="[0-9]{6,}" required>
-            </div>
-            <div class="mb-3">
-                <label for="genderInput" class="form-label">Gender</label>
-                <div id="genderButtons">
-                    <button type="button" class="btn btn-outline-primary text-black-50" data-value="male">Male</button>
-                    <button type="button" class="btn btn-outline-primary text-black-50" data-value="female">Female</button>
-                    <button type="button" class="btn btn-outline-primary text-black-50" data-value="other">Other</button>
-                </div>
-            </div>
-            
-            <script>
-                // Get all the buttons
-                const genderButtons = document.querySelectorAll('#genderButtons button');
-            
-                // Loop through each button and add an event listener
-                genderButtons.forEach(button => {
-                    button.addEventListener('click', function() {
-                        // Get the value associated with the button clicked
-                        const selectedGender = this.getAttribute('data-value');
-                        
-                        // You can perform your action here with the selected value
-                        console.log('Selected Gender:', selectedGender);
-                        
-                        // Optionally, change the style of the buttons to show which one is selected
-                        genderButtons.forEach(btn => {
-                            btn.classList.remove('btn-primary');  // Remove the selected style
-                            btn.classList.add('btn-outline-primary');  // Reset to the default state
-                        }); 
-                        this.classList.remove('btn-outline-primary'); // Remove default style
-                        this.classList.add('btn-primary');  // Apply primary style
-                    });
-                });
-            </script>
-            
-            <div class="mb-3">
-                <label for="bhagatInput" class="form-label">Is another member in your family a Bhagat?</label>
-                <div id="bhagatButtons">
-                    <button type="button" class="btn btn-outline-primary text-black-50" data-value="yes">Yes</button>
-                    <button type="button" class="btn btn-outline-primary text-black-50" data-value="no">No</button>
-                </div>
-                <script>
-                    const bhagatButtons = document.querySelectorAll('#bhagatButtons button');
-
-                    bhagatButtons.forEach(button => {
-                        button.addEventListener('click', function() {
-                            const selectedBhagat = this.getAttribute('data-value');
-
-                            if(selectedBhagat == 'yes'){
-                                document.getElementById('bhagatMembers').style.display='block';
-                            } else {
-                                document.getElementById('bhagatMembers').style.display='none';
-                            }
-
-                            bhagatButtons.forEach(btn => {
-                                btn.classList.remove('btn-primary');  // Remove the selected style
-                                btn.classList.add('btn-outline-primary');  // Reset to the default state
-                            }); 
-                            this.classList.remove('btn-outline-primary'); // Remove default style
-                            this.classList.add('btn-primary');  // Apply primary style
-                        });
-                    });
-                </script>
-            </div>
-            <div class="mb-3" id="bhagatMembers" style="display:none">
-                <label for="bhagatMemberInput" class="form-label">How many members and who?</label>
-                <input type="text" class="form-control" id="bhagatMemberInput" placeholder="Enter the names of members">
-            </div>
-            
-<div class="mb-3">
-    <label for="permanentAddressStateInput" class="form-label">Permanent Address State</label>
-    <select class="form-select" id="permanentAddressStateInput">
-        <option value="" selected>Select a state</option>
-        <option value="province1">Province 1</option>
-        <option value="province2">Madhesh</option>
-        <option value="bagmati">Bagmati</option>
-        <option value="gandaki">Gandaki</option>
-        <option value="lumbini">Lumbini</option>
-        <option value="karnali">Karnali</option>
-        <option value="sudurpaschim">Sudurpaschim</option>
-    </select>
-</div>
-
-<div class="mb-3">
-    <label for="permanentAddressDistrictInput" class="form-label">Permanent Address District</label>
-    <select class="form-select" id="permanentAddressDistrictInput">
-        <option value="" selected>Select a permanent district</option>
-        <!-- District options will be populated based on state selection -->
-    </select>
-</div>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        // Populate districts based on selected state
-        const stateSelect = document.getElementById("permanentAddressStateInput");
-        const districtSelect = document.getElementById("permanentAddressDistrictInput");
-
-        const districts = {
-            
-"province1":["भोजपुर", "धनकुटा", "इलाम", "झापा", "खोटाँग", "मोरंग", "ओखलढुंगा", "पांचथर", "संखुवासभा", "सोलुखुम्बू", "सुनसरी", "ताप्लेजुंग", "तेह्रथुम", "उदयपुर"],
-"province2":["बारा", "धनुषा", "महोत्तरी", "पर्सा", "रौतहट", "सप्तरी", "सर्लाही", "सिराहा"],
-"bagmati":["काठमाडौँ", "ललितपुर", "भक्तपुर", "मकवानपुर", "चितवन", "काभ्रेपलान्चोक", "सिन्धुपाल्चोक", "दोलखा", "रामेछाप", "रसुवा", "नुवाकोट"],
-"gandaki":["बागलुङ", "गोरखा", "कास्की", "लमजुङ", "मनाङ", "मुस्ताङ", "म्याग्दी", "नवलपुर", "पर्वत", "स्याङग्जा", "तनहुँ"],
-"lumbini":["अर्घाखाँची", "बाँके", "बर्दिया", "दाङ", "गुल्मी", "कपिलवस्तु", "परासी", "पाल्पा", "प्युठान", "रोल्पा", "पूर्वी रूकुम", "रुपन्देही"],
-"karnali":["दैलेख", "डोल्पा", "हुम्ला", "जाजरकोट", "जुम्ला", "कालिकोट", "मुगु", "रुकुम पश्चिम", "सल्यान", "सुर्खेत"],
-"sudurpaschim":["अछाम", "बैतडी", "बझाङ", "बाजुरा", "डोटी", "कैलाली", "कञ्चनपुर"]
-        };
-
-        // Populate initial district options if state is selected
-        stateSelect.addEventListener("change", function () {
-            let selectedState = this.value;
-            let districtOptions = districts[selectedState] || [];
-            let districtOptionHTML = districtOptions.map(district => `<option value="${district}">${district}</option>`).join('');
-            districtSelect.innerHTML = `<option value="">Select a permanent district</option>` + districtOptionHTML;
-
-            // Clear the municipality dropdown
-            document.getElementById("permanentAddressMunicipalityInput").innerHTML = `<option value="">Select a permanent municipality</option>`;
-        });
-
-        // Initial trigger to populate districts if default state is set
-        stateSelect.dispatchEvent(new Event('change'));
     });
 </script>
 
-<div class="mb-3">
-    <label for="permanentAddressMunicipalityInput" class="form-label">Permanent Address Municipality</label>
-    <select class="form-select" id="permanentAddressMunicipalityInput">
-        <option value="" selected>Select a permanent municipality</option>
-        <!-- Municipality options will be populated based on district selection -->
-    </select>
-</div>
-
+<script src="admin/vendors/choices.js/choices.min.js"></script>
+<script src="admin/js/jquery.js"></script>
+<script src="admin/js/pages/parsley.min.js"></script>
+<script src="admin/vendors/sweetalert2/sweetalert2.all.min.js"></script>
 <script>
-    document.getElementById("permanentAddressDistrictInput").addEventListener("change", function () {
-        let selectedDistrict = this.value;
-        let municipalitySelect = document.getElementById("permanentAddressMunicipalityInput");
-        let municipalityOptionHTML = "";
-
-        const municipalities = {
-         "भोजपुर": ['अरुण', 'आमचोक', 'टेम्केमैयुङ', 'पौवादुङमा', 'भोजपुर', 'रामप्रसाद राई', 'षडानन्द', 'साल्पासिलिछो', 'हतुवागढी'],
-"धनकुटा": ['चौविसे', 'छथर जोरपाटी', 'धनकुटा', 'पाख्रिबास', 'महालक्ष्मी', 'सहिदभूमि', 'साँगुरीगढी'],
-"इलाम": ['ईलाम', 'चुलाचुली', 'देउमाई', 'फाकफोकथुम', 'माई', 'माईजोगमाई', 'माङसेबुङ', 'रोङ', 'सन्दकपुर', 'सूर्योदय'],
-"झापा": ['अर्जुनधारा', 'कचनकवल', 'कन्काई', 'कमल', 'गौरादह', 'गौरीगंज', 'झापा', 'दमक', 'बाह्रदशी', 'बुद्धशान्ति', 'भद्रपुर', 'मेचीनगर', 'विर्तामोड', 'शिवशताक्षी', 'हल्दिवारी'],
-"खोटाँग": ['ऐसेलुखर्क', 'केपिलासगढी', 'खोटेहाङ', 'जन्तेढुंगा', 'दिक्तेल रुपाकोट मझुवागढी', 'दिप्रुङ चुइचुम्मा', 'रावा बेसी', 'वराहपोखरी', 'साकेला', 'हलेसी तुवाचुङ'],
-"मोरंग": ['उर्लावारी', 'कटहरी', 'कानेपोखरी', 'केरावारी', 'ग्रामथान', 'जहदा', 'धनपालथान', 'पथरी शनिश्चरे', 'बुढीगंगा', 'बेलवारी', 'मिक्लाजुङ', 'रंगेली', 'रतुवामाई', 'लेटाङ', 'विराटनगर', 'सुनवर्षि', 'सुन्दरहरैचा'],
-"ओखलढुंगा": ['खिजिदेम्बा', 'चम्पादेवी', 'चिशंखुगढी', 'मानेभञ्याङ', 'मोलुङ', 'लिखु', 'सिद्दिचरण', 'सुनकोशी'],
-"पांचथर": ['कुम्मायक', 'तुम्बेवा', 'फालेलुङ', 'फाल्गुनन्द', 'फिदिम', 'मिक्लाजुङ', 'याङवरक', 'हिलिहाङ'],
-"संखुवासभा": ['खाँदवारी', 'चिचिला', 'चैनपुर', 'धर्मदेवी', 'पाँचखपन', 'भोटखोला', 'मकालु', 'मादी', 'सभापोखरी', 'सिलीचोङ'],
-"सोलुखुम्बू": ['खुम्वु पासाङल्हमु', 'थुलुङ दुधकोशी', 'नेचासल्यान', 'माप्य दुधकोशी', 'माहाकुलुङ', 'लिखु पिके', 'सोताङ', 'सोलुदुधकुण्ड'],
-"सुनसरी": ['ईटहरी', 'ईनरुवा', 'कोशी', 'गढी', 'दुहवी', 'देवानगञ्ज', 'धरान', 'बराहक्षेत्र', 'बर्जु', 'भोक्राहा नरसिंह', 'रामधुनी', 'हरिनगर'],
-"ताप्लेजुंग": ['आठराई त्रिवेणी', 'पाथीभरा याङवरक', 'फक्ताङलुङ', 'फुङलिङ', 'मिक्वाखोला', 'मेरिङदेन', 'मैवाखोला', 'सिदिङ्वा', 'सिरीजङ्घा'],
-"तेह्रथुम": ['आठराई', 'छथर', 'फेदाप', 'मेन्छयायेम', 'म्याङलुङ', 'लालीगुराँस'],
-"उदयपुर": ['उदयपुरगढी', 'कटारी', 'चौदण्डीगढी', 'ताप्ली', 'त्रियुगा', 'रौतामाई', 'लिम्चुङ्बुङ', 'वेलका'],
-"पर्सा": ['कालिकामाई', 'छिपहरमाई', 'जगरनाथपुर', 'जिरा भवानी', 'ठोरी', 'धोबीनी', 'पकाहा मैनपुर', 'पटेर्वा सुगौली', 'पर्सागढी', 'पोखरिया', 'बहुदरमाई', 'बिन्दबासिनी', 'बिरगंज', 'सखुवा प्रसौनी'],
-"बारा": ['आदर्श कोटवाल', 'करैयामाई', 'कलैया', 'कोल्हवी', 'जीतपुर सिमरा', 'देवताल', 'निजगढ', 'पचरौता', 'परवानीपुर', 'प्रसौनी', 'फेटा', 'बारागढी', 'महागढीमाई', 'विश्रामपुर', 'सिम्रौनगढ', 'सुवर्ण'],
-"रौतहट": ['ईशनाथ', 'कटहरिया', 'गढीमाई', 'गरुडा', 'गुजरा', 'गौर', 'चन्द्रपुर', 'दुर्गा भगवती', 'देवाही गोनाही', 'परोहा', 'फतुवाबिजयपुर', 'बृन्दावन', 'बौधीमाई', 'माधव नारायण', 'मौलापुर', 'यमुनामाई', 'राजदेवी', 'राजपुर'],
-"सर्लाही": ['ईश्वरपुर', 'कविलासी', 'कौडेना', 'गोडैटा', 'चक्रघट्टा', 'चन्द्रनगर', 'धनकौल', 'पर्सा', 'बरहथवा', 'बलरा', 'बसबरीया', 'बागमती', 'ब्रह्मपुरी', 'मलंगवा', 'रामनगर', 'लालबन्दी', 'विष्णु', 'हरिपुर', 'हरिपुर्वा', 'हरिवन'],
-"सिराहा": ['अर्नमा', 'औरही', 'कर्जन्हा', 'कल्याणपुर', 'गोलबजार', 'धनगढीमाई', 'नरहा', 'नवराजपुर', 'बरियारपट्टी', 'भगवानपुर', 'मिर्चैयाँ', 'लक्ष्मीपुर पतारी', 'लहान', 'विष्णुपुर', 'सखुवानान्कारकट्टी', 'सिरहा', 'सुखीपुर'],
-"धनुषा": ['औरही', 'कमला', 'क्षिरेश्वरनाथ', 'गणेशमान चारनाथ', 'जनकनन्दिनी', 'जनकपुरधाम', 'धनुषाधाम', 'धनौजी', 'नगराइन', 'बटेश्वर', 'मिथिला', 'मिथिला बिहारी', 'मुखियापट्टी मुसहरमिया', 'लक्ष्मीनिया', 'विदेह', 'शहीदनगर', 'सबैला', 'हंसपुर'],
-"सप्तरी": ['अग्निसाइर कृष्णासरवन', 'कञ्चनरुप', 'खडक', 'छिन्नमस्ता', 'डाक्नेश्वरी', 'तिरहुत', 'तिलाठी कोईलाडी', 'बलान-बिहुल', 'बिष्णुपुर', 'बोदेबरसाईन', 'महादेवा', 'राजगढ', 'राजविराज', 'रुपनी', 'शम्भुनाथ', 'सप्तकोशी', 'सुरुङ्\u200dगा', 'हनुमाननगर कङ्\u200cकालिनी'],
-"महोत्तरी": ['एकडारा', 'औरही', 'गौशाला', 'जलेश्वर', 'पिपरा', 'बर्दिबास', 'बलवा', 'भँगाहा', 'मटिहानी', 'मनरा शिसवा', 'महोत्तरी', 'रामगोपालपुर', 'लोहरपट्टी', 'साम्सी', 'सोनमा'],
-"भक्तपुर": ['चाँगुनारायण', 'भक्तपुर', 'मध्यपुर थिमी', 'सूर्यविनायक'],
-"चितवन": ['इच्छाकामना', 'कालिका', 'खैरहनी', 'भरतपुर', 'माडी', 'रत्ननगर', 'राप्ती'],
-"धादिंङ्ग": ['खनियाबास', 'गङ्गाजमुना', 'गजुरी', 'गल्छी', 'ज्वालामूखी', 'त्रिपुरासुन्दरी', 'थाक्रे', 'धुनीबेंशी', 'निलकण्ठ', 'नेत्रावती डबजोङ', 'बेनीघाट रोराङ्ग', 'रुवी भ्याली', 'सिद्धलेक'],
-"दोलखा": ['कालिन्चोक', 'गौरीशङ्कर', 'जिरी', 'तामाकोशी', 'भिमेश्वर', 'मेलुङ्ग', 'विगु', 'वैतेश्वर', 'शैलुङ्ग'],
-"काठमाडौँ": ['कागेश्वरी मनोहरा', 'काठमाण्डौं', 'कीर्तिपुर', 'गोकर्णेश्वर', 'चन्द्रागिरी', 'टोखा', 'तारकेश्वर', 'दक्षिणकाली', 'नागार्जुन', 'बुढानिलकण्ठ', 'शङ्खरापुर'],
-"काभ्रेपलान्चोक": ['खानीखोला', 'चौंरीदेउराली', 'तेमाल', 'धुलिखेल', 'नमोबुद्ध', 'पनौती', 'पाँचखाल', 'बनेपा', 'बेथानचोक', 'भुम्लु', 'मण्डनदेउपुर', 'महाभारत', 'रोशी'],
-"ललितपुर": ['कोन्ज्योसोम', 'गोदावरी', 'बागमती', 'महाङ्काल', 'महालक्ष्मी', 'ललितपुर'],
-"मकवानपुर": ['इन्द्रसरोबर', 'कैलाश', 'थाहा', 'बकैया', 'बाग्मति', 'भिमफेदी', 'मकवानपुरगढी', 'मनहरी', 'राक्सिराङ्ग', 'हेटौडा'],
-"नुवाकोट": ['ककनी', 'किस्पाङ', 'तादी', 'तारकेश्वर', 'दुप्चेश्वर', 'पञ्चकन्या', 'बेलकोटगढी', 'म्यगङ', 'लिखु', 'विदुर', 'शिवपुरी', 'सुर्यगढी'],
-"रामेछाप": ['उमाकुण्ड', 'खाँडादेवी', 'गोकुलगङ्गा', 'दोरम्बा', 'मन्थली', 'रामेछाप', 'लिखु तामाकोशी', 'सुनापती'],
-"रसुवा": ['आमाछोदिङमो', 'उत्तरगया', 'कालिका', 'गोसाईकुण्ड', 'नौकुण्ड'],
-"सिन्धुली": ['कमलामाई', 'गोलन्जर', 'घ्याङलेख', 'तीनपाटन', 'दुधौली', 'फिक्कल', 'मरिण', 'सुनकोशी', 'हरिहरपुरगढी'],
-"सिन्धुपाल्चोक": ['ईन्द्रावती', 'चौतारा साँगाचोकगढी', 'जुगल', 'त्रिपुरासुन्दरी', 'पाँचपोखरी थाङपाल', 'बलेफी', 'बाह्रविसे', 'भोटेकोशी', 'मेलम्ची', 'लिसङ्खु पाखर', 'सुनकोशी', 'हेलम्बु'],
-"बागलुङ": ['काठेखोला', 'गल्कोट', 'जैमूनी', 'ढोरपाटन', 'तमानखोला', 'ताराखोला', 'निसीखोला', 'बागलुङ', 'वडिगाड', 'वरेङ'],
-"गोरखा": ['अजिरकोट', 'आरूघाट', 'गण्डकी', 'गोरखा', 'चुमनुव्री', 'धार्चे', 'पालुङटार', 'बारपाक सुलिकोट', 'भिमसेनथापा', 'शहिद लखन', 'सिरानचोक'],
-"कास्की": ['अन्नपूर्ण', 'पोखरा', 'माछापुच्छ्रे', 'मादी', 'रूपा'],
-"लमजुङ": ['क्व्होलासोथार', 'दूधपोखरी', 'दोर्दी', 'बेसीशहर', 'मध्यनेपाल', 'मर्स्याङदी', 'रारइनास', 'सुन्दरबजार'],
-"मनाङ": ['चामे', 'नार्पा भूमि', 'नासोँ', 'मनाङ ङिस्याङ'],
-"मुस्ताङ": ['घरपझोङ', 'थासाङ', 'लो-घेकर दामोदरकुण्ड', 'लोमन्थाङ', 'वारागुङ मुक्तिक्षेत्र'],
-"म्याग्दी": ['अन्नपुर्ण', 'धवलागिरी', 'बेनी', 'मंगला', 'मालिका', 'रघुगंगा'],
-"नवलपुर": ['कावासोती', 'गैडाकोट', 'देवचुली', 'बुलिङटार', 'बौदीकाली', 'मध्यविन्दु', 'विनयी त्रिवेणी', 'हुप्सेकोट'],
-"पर्वत": ['कुश्मा', 'जलजला', 'पैयूं', 'फलेवास', 'महाशिला', 'मोदी', 'विहादी'],
-"स्याङग्जा": ['अर्जुनचौपारी', 'आँधिखोला', 'कालीगण्डकी', 'गल्याङ', 'चापाकोट', 'पुतलीबजार', 'फेदीखोला', 'बिरुवा', 'भीरकोट', 'वालिङ', 'हरिनास'],
-"तनहुँ": ['आँबुखैरेनी', 'ऋषिङ्ग', 'घिरिङ', 'देवघाट', 'भानु', 'भिमाद', 'म्याग्दे', 'वन्दिपुर', 'व्यास', 'शुक्लागण्डकी'],
-"कपिलवस्तु": ['कपिलवस्तु', 'कृष्णनगर', 'बाणगंगा', 'बुद्धभुमी', 'महाराजगंज', 'मायादेवी', 'यसोधरा', 'विजयनगर', 'शिवराज', 'सुद्धोधन'],
-"परासी": ['पाल्हीनन्दन', 'प्रतापपुर', 'बर्दघाट', 'रामग्राम', 'सरावल', 'सुनवल', 'सुस्ता'],
-"रुपन्देही": ['ओमसतिया', 'कन्चन', 'कोटहीमाई', 'गैडहवा', 'तिलोत्तमा', 'देवदह', 'बुटवल', 'मर्चवारी', 'मायादेवी', 'रोहिणी', 'लुम्बिनी सांस्कृतिक', 'शुद्धोधन', 'सम्मरीमाई', 'सिद्धार्थनगर', 'सियारी', 'सैनामैना'],
-"अर्घाखाँची": ['छत्रदेव', 'पाणिनी', 'भूमिकास्थान', 'मालारानी', 'शितगंगा', 'सन्धिखर्क'],
-"गुल्मी": ['ईस्मा', 'कालीगण्डकी', 'गुल्मी दरबार', 'चन्द्रकोट', 'छत्रकोट', 'धुर्कोट', 'मदाने', 'मालिका', 'मुसिकोट', 'रुरुक्षेत्र', 'रेसुङ्गा', 'सत्यवती'],
-"पाल्पा": ['तानसेन', 'तिनाउ', 'निस्दी', 'पूर्वखोला', 'बगनासकाली', 'माथागढी', 'रम्भा', 'रामपुर', 'रिब्दिकोट', 'रैनादेवी छहरा'],
-"दाङ": ['गढवा', 'घोराही', 'तुल्सीपुर', 'दंगीशरण', 'बंगलाचुली', 'बबई', 'राजपुर', 'राप्ती', 'लमही', 'शान्तिनगर'],
-"प्युठान": ['ऐरावती', 'गौमुखी', 'झिमरुक', 'नौवहिनी', 'प्यूठान', 'मल्लरानी', 'माण्डवी', 'सरुमारानी', 'स्वर्गद्वारी'],
-"रोल्पा": ['गंगादेव', 'त्रिवेणी', 'थवाङ', 'परिवर्तन', 'माडी', 'रुन्टीगढी', 'रोल्पा', 'लुङग्री', 'सुनछहरी', 'सुनिल स्मृति'],
-"पूर्वी रूकुम": ['पुथा उत्तरगंगा', 'भूमे', 'सिस्ने'],
-"बाँके": ['कोहलपुर', 'खजुरा', 'जानकी', 'डुडुवा', 'नरैनापुर', 'नेपालगंज', 'बैजनाथ', 'राप्ती सोनारी'],
-"बर्दिया": ['गुलरिया', 'गेरुवा', 'ठाकुरबाबा', 'बढैयाताल', 'बाँसगढी', 'बारबर्दिया', 'मधुवन', 'राजापुर'],
-"रुकुम पश्चिम": ['आठबिसकोट', 'चौरजहारी', 'त्रिवेणी', 'बाँफिकोट', 'मुसिकोट', 'सानी भेरी'],
-"सल्यान": ['कपुरकोट', 'कालिमाटी', 'कुमाख', 'छत्रेश्वरी', 'त्रिवेणी', 'दार्मा', 'बनगाड कुपिण्डे', 'बागचौर', 'शारदा', 'सिद्ध कुमाख'],
-"डोल्पा": ['काईके', 'छार्का ताङसोङ', 'जगदुल्ला', 'ठूली भेरी', 'डोल्पो बुद्ध', 'त्रिपुरासुन्दरी', 'मुड्केचुला', 'शे फोक्सुन्डो'],
-"हुम्ला": ['अदानचुली', 'खार्पुनाथ', 'चंखेली', 'ताँजाकोट', 'नाम्खा', 'सर्केगाड', 'सिमकोट'],
-"जुम्ला": ['कनकासुन्दरी', 'गुठिचौर', 'चन्दननाथ', 'तातोपानी', 'तिला', 'पातारासी', 'सिंजा', 'हिमा'],
-"कालिकोट": ['खाँडाचक्र', 'तिलागुफा', 'नरहरिनाथ', 'पचालझरना', 'पलाता', 'महावै', 'रास्कोट', 'शुभ कालीका', 'सान्नी त्रिवेणी'],
-"मुगु": ['खत्याड', 'छायाँनाथ रारा', 'मुगुम कार्मारोंग', 'सोरु'],
-"सुर्खेत": ['गुर्भाकोट', 'चिङ्गाड', 'चौकुने', 'पञ्चपुरी', 'बराहताल', 'बीरेन्द्रनगर', 'भेरीगंगा', 'लेकवेशी', 'सिम्ता'],
-"दैलेख": ['आठबीस', 'गुराँस', 'चामुण्डा विन्द्रासैनी', 'ठाँटीकाँध', 'डुंगेश्वर', 'दुल्लु', 'नारायण', 'नौमुले', 'भगवतीमाई', 'भैरवी', 'महावु'],
-"जाजरकोट": ['कुसे', 'छेडागाड', 'जुनीचाँदे', 'नलगाड', 'बारेकोट', 'भेरी', 'शिवालय'],
-"दार्चुला": ['अपिहिमाल', 'दुहुँ', 'नौगाड', 'ब्याँस', 'महाकाली', 'मार्मा', 'मालिकार्जुन', 'लेकम', 'शैल्यशिखर'],
-"बझाङ": ['केदारस्युँ', 'खप्तडछान्ना', 'छबिसपाथिभेरा', 'जयपृथ्वी', 'तलकोट', 'थलारा', 'दुर्गाथली', 'बुंगल', 'मष्टा', 'वित्थडचिर', 'साइपाल', 'सूर्मा'],
-"बाजुरा": ['खप्तड छेडेदह', 'गौमुल', 'जगन्\u200dनाथ', 'त्रिवेणी', 'बडीमालिका', 'बुढीगंगा', 'बुढीनन्दा', 'स्वामीकार्तिक खापर', 'हिमाली'],
-"बैतडी": ['डीलासैनी', 'दशरथचन्द', 'दोगडाकेदार', 'पञ्चेश्वर', 'पाटन', 'पुर्चौडी', 'मेलौली', 'शिवनाथ', 'सिगास', 'सुर्नया'],
-"डोटी": ['आदर्श', 'के.आई.सिं.', 'जोरायल', 'दिपायल सिलगढी', 'पूर्वीचौकी', 'बडीकेदार', 'बोगटान फुड्सिल', 'शिखर', 'सायल'],
-"अछाम": ['कमलबजार', 'चौरपाटी', 'ढकारी', 'तुर्माखाँद', 'पन्चदेवल विनायक', 'बान्निगढी जयगढ', 'मंगलसेन', 'मेल्लेख', 'रामारोशन', 'साँफेबगर'],
-"डडेलधुरा": ['अजयमेरु', 'अमरगढी', 'आलिताल', 'गन्यापधुरा', 'नवदुर्गा', 'परशुराम', 'भागेश्वर'],
-"कञ्चनपुर": ['कृष्णपुर', 'पुर्नवास', 'बेलडाडी', 'बेलौरी', 'भीमदत्त', 'माहाकाली', 'लालझाडी', 'वेदकोट', 'शुक्लाफाँटा'],
-"कैलाली": ['कैलारी', 'गोदावरी', 'गौरीगंगा', 'घोडाघोडी', 'चुरे', 'जानकी', 'जोशीपुर', 'टिकापुर', 'धनगढी', 'बर्दगोरिया', 'भजनी', 'मोहन्याल', 'लम्कीचुहा'],
-
-            // Add other district municipalities here...
-        };
-
-        if (municipalities[selectedDistrict]) {
-            municipalityOptionHTML = municipalities[selectedDistrict].map(municipality => `<option value="${municipality}">${municipality}</option>`).join('');
-        }
-
-        municipalitySelect.innerHTML = `<option value="">Select a permanent municipality</option>` + municipalityOptionHTML;
-    });
-</script>
-
-<div class="mb-3">
-    <label for="permanentAddressWardNoInput" class="form-label">Permanent Address Ward No</label>
-    <input type="number" class="form-control" id="permanentAddressWardNoInput" placeholder="Enter ward number">
-</div>
-<div class="mb-3">
-    <label for="permanentAddressToleInput" class="form-label">Permanent Address Tole/Address</label>
-    <input type="text" class="form-control" id="permanentAddressToleInput" placeholder="Enter tole or address">
-</div>
-
-<!-- for temporary address -->
-
-
-
-<div class="mb-3">
-    <label for="TemporaryAddressStateInput" class="form-label">Temporary Address State</label>
-    <select class="form-select" id="TemporaryAddressStateInput">
-        <option value="" selected>Select a state</option>
-        <option value="province1">Province 1</option>
-        <option value="province2">Madhesh</option>
-        <option value="bagmati">Bagmati</option>
-        <option value="gandaki">Gandaki</option>
-        <option value="lumbini">Lumbini</option>
-        <option value="karnali">Karnali</option>
-        <option value="sudurpaschim">Sudurpaschim</option>
-    </select>
-</div>
-
-<div class="mb-3">
-    <label for="TemporaryAddressDistrictInput" class="form-label">Temporary Address District</label>
-    <select class="form-select" id="TemporaryAddressDistrictInput">
-        <option value="" selected>Select a Temporary district</option>
-        <!-- District options will be populated based on state selection -->
-    </select>
-</div>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        // Populate districts based on selected state
-        const stateSelect = document.getElementById("TemporaryAddressStateInput");
-        const districtSelect = document.getElementById("TemporaryAddressDistrictInput");
-
-        const districts = {
-            
-"province1":["भोजपुर", "धनकुटा", "इलाम", "झापा", "खोटाँग", "मोरंग", "ओखलढुंगा", "पांचथर", "संखुवासभा", "सोलुखुम्बू", "सुनसरी", "ताप्लेजुंग", "तेह्रथुम", "उदयपुर"],
-"province2":["बारा", "धनुषा", "महोत्तरी", "पर्सा", "रौतहट", "सप्तरी", "सर्लाही", "सिराहा"],
-"bagmati":["काठमाडौँ", "ललितपुर", "भक्तपुर", "मकवानपुर", "चितवन", "काभ्रेपलान्चोक", "सिन्धुपाल्चोक", "दोलखा", "रामेछाप", "रसुवा", "नुवाकोट"],
-"gandaki":["बागलुङ", "गोरखा", "कास्की", "लमजुङ", "मनाङ", "मुस्ताङ", "म्याग्दी", "नवलपुर", "पर्वत", "स्याङग्जा", "तनहुँ"],
-"lumbini":["अर्घाखाँची", "बाँके", "बर्दिया", "दाङ", "गुल्मी", "कपिलवस्तु", "परासी", "पाल्पा", "प्युठान", "रोल्पा", "पूर्वी रूकुम", "रुपन्देही"],
-"karnali":["दैलेख", "डोल्पा", "हुम्ला", "जाजरकोट", "जुम्ला", "कालिकोट", "मुगु", "रुकुम पश्चिम", "सल्यान", "सुर्खेत"],
-"sudurpaschim":["अछाम", "बैतडी", "बझाङ", "बाजुरा", "डोटी", "कैलाली", "कञ्चनपुर"]
-        };
-
-        // Populate initial district options if state is selected
-        stateSelect.addEventListener("change", function () {
-            let selectedState = this.value;
-            let districtOptions = districts[selectedState] || [];
-            let districtOptionHTML = districtOptions.map(district => `<option value="${district}">${district}</option>`).join('');
-            districtSelect.innerHTML = `<option value="">Select a Temporary district</option>` + districtOptionHTML;
-
-            // Clear the municipality dropdown
-            document.getElementById("TemporaryAddressMunicipalityInput").innerHTML = `<option value="">Select a Temporary municipality</option>`;
-        });
-
-        // Initial trigger to populate districts if default state is set
-        stateSelect.dispatchEvent(new Event('change'));
-    });
-</script>
-
-<div class="mb-3">
-    <label for="TemporaryAddressMunicipalityInput" class="form-label">Temporary Address Municipality</label>
-    <select class="form-select" id="TemporaryAddressMunicipalityInput">
-        <option value="" selected>Select a Temporary municipality</option>
-        <!-- Municipality options will be populated based on district selection -->
-    </select>
-</div>
-
-<script>
-    document.getElementById("TemporaryAddressDistrictInput").addEventListener("change", function () {
-        let selectedDistrict = this.value;
-        let municipalitySelect = document.getElementById("TemporaryAddressMunicipalityInput");
-        let municipalityOptionHTML = "";
-
-        const municipalities = {
-         "भोजपुर": ['अरुण', 'आमचोक', 'टेम्केमैयुङ', 'पौवादुङमा', 'भोजपुर', 'रामप्रसाद राई', 'षडानन्द', 'साल्पासिलिछो', 'हतुवागढी'],
-"धनकुटा": ['चौविसे', 'छथर जोरपाटी', 'धनकुटा', 'पाख्रिबास', 'महालक्ष्मी', 'सहिदभूमि', 'साँगुरीगढी'],
-"इलाम": ['ईलाम', 'चुलाचुली', 'देउमाई', 'फाकफोकथुम', 'माई', 'माईजोगमाई', 'माङसेबुङ', 'रोङ', 'सन्दकपुर', 'सूर्योदय'],
-"झापा": ['अर्जुनधारा', 'कचनकवल', 'कन्काई', 'कमल', 'गौरादह', 'गौरीगंज', 'झापा', 'दमक', 'बाह्रदशी', 'बुद्धशान्ति', 'भद्रपुर', 'मेचीनगर', 'विर्तामोड', 'शिवशताक्षी', 'हल्दिवारी'],
-"खोटाँग": ['ऐसेलुखर्क', 'केपिलासगढी', 'खोटेहाङ', 'जन्तेढुंगा', 'दिक्तेल रुपाकोट मझुवागढी', 'दिप्रुङ चुइचुम्मा', 'रावा बेसी', 'वराहपोखरी', 'साकेला', 'हलेसी तुवाचुङ'],
-"मोरंग": ['उर्लावारी', 'कटहरी', 'कानेपोखरी', 'केरावारी', 'ग्रामथान', 'जहदा', 'धनपालथान', 'पथरी शनिश्चरे', 'बुढीगंगा', 'बेलवारी', 'मिक्लाजुङ', 'रंगेली', 'रतुवामाई', 'लेटाङ', 'विराटनगर', 'सुनवर्षि', 'सुन्दरहरैचा'],
-"ओखलढुंगा": ['खिजिदेम्बा', 'चम्पादेवी', 'चिशंखुगढी', 'मानेभञ्याङ', 'मोलुङ', 'लिखु', 'सिद्दिचरण', 'सुनकोशी'],
-"पांचथर": ['कुम्मायक', 'तुम्बेवा', 'फालेलुङ', 'फाल्गुनन्द', 'फिदिम', 'मिक्लाजुङ', 'याङवरक', 'हिलिहाङ'],
-"संखुवासभा": ['खाँदवारी', 'चिचिला', 'चैनपुर', 'धर्मदेवी', 'पाँचखपन', 'भोटखोला', 'मकालु', 'मादी', 'सभापोखरी', 'सिलीचोङ'],
-"सोलुखुम्बू": ['खुम्वु पासाङल्हमु', 'थुलुङ दुधकोशी', 'नेचासल्यान', 'माप्य दुधकोशी', 'माहाकुलुङ', 'लिखु पिके', 'सोताङ', 'सोलुदुधकुण्ड'],
-"सुनसरी": ['ईटहरी', 'ईनरुवा', 'कोशी', 'गढी', 'दुहवी', 'देवानगञ्ज', 'धरान', 'बराहक्षेत्र', 'बर्जु', 'भोक्राहा नरसिंह', 'रामधुनी', 'हरिनगर'],
-"ताप्लेजुंग": ['आठराई त्रिवेणी', 'पाथीभरा याङवरक', 'फक्ताङलुङ', 'फुङलिङ', 'मिक्वाखोला', 'मेरिङदेन', 'मैवाखोला', 'सिदिङ्वा', 'सिरीजङ्घा'],
-"तेह्रथुम": ['आठराई', 'छथर', 'फेदाप', 'मेन्छयायेम', 'म्याङलुङ', 'लालीगुराँस'],
-"उदयपुर": ['उदयपुरगढी', 'कटारी', 'चौदण्डीगढी', 'ताप्ली', 'त्रियुगा', 'रौतामाई', 'लिम्चुङ्बुङ', 'वेलका'],
-"पर्सा": ['कालिकामाई', 'छिपहरमाई', 'जगरनाथपुर', 'जिरा भवानी', 'ठोरी', 'धोबीनी', 'पकाहा मैनपुर', 'पटेर्वा सुगौली', 'पर्सागढी', 'पोखरिया', 'बहुदरमाई', 'बिन्दबासिनी', 'बिरगंज', 'सखुवा प्रसौनी'],
-"बारा": ['आदर्श कोटवाल', 'करैयामाई', 'कलैया', 'कोल्हवी', 'जीतपुर सिमरा', 'देवताल', 'निजगढ', 'पचरौता', 'परवानीपुर', 'प्रसौनी', 'फेटा', 'बारागढी', 'महागढीमाई', 'विश्रामपुर', 'सिम्रौनगढ', 'सुवर्ण'],
-"रौतहट": ['ईशनाथ', 'कटहरिया', 'गढीमाई', 'गरुडा', 'गुजरा', 'गौर', 'चन्द्रपुर', 'दुर्गा भगवती', 'देवाही गोनाही', 'परोहा', 'फतुवाबिजयपुर', 'बृन्दावन', 'बौधीमाई', 'माधव नारायण', 'मौलापुर', 'यमुनामाई', 'राजदेवी', 'राजपुर'],
-"सर्लाही": ['ईश्वरपुर', 'कविलासी', 'कौडेना', 'गोडैटा', 'चक्रघट्टा', 'चन्द्रनगर', 'धनकौल', 'पर्सा', 'बरहथवा', 'बलरा', 'बसबरीया', 'बागमती', 'ब्रह्मपुरी', 'मलंगवा', 'रामनगर', 'लालबन्दी', 'विष्णु', 'हरिपुर', 'हरिपुर्वा', 'हरिवन'],
-"सिराहा": ['अर्नमा', 'औरही', 'कर्जन्हा', 'कल्याणपुर', 'गोलबजार', 'धनगढीमाई', 'नरहा', 'नवराजपुर', 'बरियारपट्टी', 'भगवानपुर', 'मिर्चैयाँ', 'लक्ष्मीपुर पतारी', 'लहान', 'विष्णुपुर', 'सखुवानान्कारकट्टी', 'सिरहा', 'सुखीपुर'],
-"धनुषा": ['औरही', 'कमला', 'क्षिरेश्वरनाथ', 'गणेशमान चारनाथ', 'जनकनन्दिनी', 'जनकपुरधाम', 'धनुषाधाम', 'धनौजी', 'नगराइन', 'बटेश्वर', 'मिथिला', 'मिथिला बिहारी', 'मुखियापट्टी मुसहरमिया', 'लक्ष्मीनिया', 'विदेह', 'शहीदनगर', 'सबैला', 'हंसपुर'],
-"सप्तरी": ['अग्निसाइर कृष्णासरवन', 'कञ्चनरुप', 'खडक', 'छिन्नमस्ता', 'डाक्नेश्वरी', 'तिरहुत', 'तिलाठी कोईलाडी', 'बलान-बिहुल', 'बिष्णुपुर', 'बोदेबरसाईन', 'महादेवा', 'राजगढ', 'राजविराज', 'रुपनी', 'शम्भुनाथ', 'सप्तकोशी', 'सुरुङ्\u200dगा', 'हनुमाननगर कङ्\u200cकालिनी'],
-"महोत्तरी": ['एकडारा', 'औरही', 'गौशाला', 'जलेश्वर', 'पिपरा', 'बर्दिबास', 'बलवा', 'भँगाहा', 'मटिहानी', 'मनरा शिसवा', 'महोत्तरी', 'रामगोपालपुर', 'लोहरपट्टी', 'साम्सी', 'सोनमा'],
-"भक्तपुर": ['चाँगुनारायण', 'भक्तपुर', 'मध्यपुर थिमी', 'सूर्यविनायक'],
-"चितवन": ['इच्छाकामना', 'कालिका', 'खैरहनी', 'भरतपुर', 'माडी', 'रत्ननगर', 'राप्ती'],
-"धादिंङ्ग": ['खनियाबास', 'गङ्गाजमुना', 'गजुरी', 'गल्छी', 'ज्वालामूखी', 'त्रिपुरासुन्दरी', 'थाक्रे', 'धुनीबेंशी', 'निलकण्ठ', 'नेत्रावती डबजोङ', 'बेनीघाट रोराङ्ग', 'रुवी भ्याली', 'सिद्धलेक'],
-"दोलखा": ['कालिन्चोक', 'गौरीशङ्कर', 'जिरी', 'तामाकोशी', 'भिमेश्वर', 'मेलुङ्ग', 'विगु', 'वैतेश्वर', 'शैलुङ्ग'],
-"काठमाडौँ": ['कागेश्वरी मनोहरा', 'काठमाण्डौं', 'कीर्तिपुर', 'गोकर्णेश्वर', 'चन्द्रागिरी', 'टोखा', 'तारकेश्वर', 'दक्षिणकाली', 'नागार्जुन', 'बुढानिलकण्ठ', 'शङ्खरापुर'],
-"काभ्रेपलान्चोक": ['खानीखोला', 'चौंरीदेउराली', 'तेमाल', 'धुलिखेल', 'नमोबुद्ध', 'पनौती', 'पाँचखाल', 'बनेपा', 'बेथानचोक', 'भुम्लु', 'मण्डनदेउपुर', 'महाभारत', 'रोशी'],
-"ललितपुर": ['कोन्ज्योसोम', 'गोदावरी', 'बागमती', 'महाङ्काल', 'महालक्ष्मी', 'ललितपुर'],
-"मकवानपुर": ['इन्द्रसरोबर', 'कैलाश', 'थाहा', 'बकैया', 'बाग्मति', 'भिमफेदी', 'मकवानपुरगढी', 'मनहरी', 'राक्सिराङ्ग', 'हेटौडा'],
-"नुवाकोट": ['ककनी', 'किस्पाङ', 'तादी', 'तारकेश्वर', 'दुप्चेश्वर', 'पञ्चकन्या', 'बेलकोटगढी', 'म्यगङ', 'लिखु', 'विदुर', 'शिवपुरी', 'सुर्यगढी'],
-"रामेछाप": ['उमाकुण्ड', 'खाँडादेवी', 'गोकुलगङ्गा', 'दोरम्बा', 'मन्थली', 'रामेछाप', 'लिखु तामाकोशी', 'सुनापती'],
-"रसुवा": ['आमाछोदिङमो', 'उत्तरगया', 'कालिका', 'गोसाईकुण्ड', 'नौकुण्ड'],
-"सिन्धुली": ['कमलामाई', 'गोलन्जर', 'घ्याङलेख', 'तीनपाटन', 'दुधौली', 'फिक्कल', 'मरिण', 'सुनकोशी', 'हरिहरपुरगढी'],
-"सिन्धुपाल्चोक": ['ईन्द्रावती', 'चौतारा साँगाचोकगढी', 'जुगल', 'त्रिपुरासुन्दरी', 'पाँचपोखरी थाङपाल', 'बलेफी', 'बाह्रविसे', 'भोटेकोशी', 'मेलम्ची', 'लिसङ्खु पाखर', 'सुनकोशी', 'हेलम्बु'],
-"बागलुङ": ['काठेखोला', 'गल्कोट', 'जैमूनी', 'ढोरपाटन', 'तमानखोला', 'ताराखोला', 'निसीखोला', 'बागलुङ', 'वडिगाड', 'वरेङ'],
-"गोरखा": ['अजिरकोट', 'आरूघाट', 'गण्डकी', 'गोरखा', 'चुमनुव्री', 'धार्चे', 'पालुङटार', 'बारपाक सुलिकोट', 'भिमसेनथापा', 'शहिद लखन', 'सिरानचोक'],
-"कास्की": ['अन्नपूर्ण', 'पोखरा', 'माछापुच्छ्रे', 'मादी', 'रूपा'],
-"लमजुङ": ['क्व्होलासोथार', 'दूधपोखरी', 'दोर्दी', 'बेसीशहर', 'मध्यनेपाल', 'मर्स्याङदी', 'रारइनास', 'सुन्दरबजार'],
-"मनाङ": ['चामे', 'नार्पा भूमि', 'नासोँ', 'मनाङ ङिस्याङ'],
-"मुस्ताङ": ['घरपझोङ', 'थासाङ', 'लो-घेकर दामोदरकुण्ड', 'लोमन्थाङ', 'वारागुङ मुक्तिक्षेत्र'],
-"म्याग्दी": ['अन्नपुर्ण', 'धवलागिरी', 'बेनी', 'मंगला', 'मालिका', 'रघुगंगा'],
-"नवलपुर": ['कावासोती', 'गैडाकोट', 'देवचुली', 'बुलिङटार', 'बौदीकाली', 'मध्यविन्दु', 'विनयी त्रिवेणी', 'हुप्सेकोट'],
-"पर्वत": ['कुश्मा', 'जलजला', 'पैयूं', 'फलेवास', 'महाशिला', 'मोदी', 'विहादी'],
-"स्याङग्जा": ['अर्जुनचौपारी', 'आँधिखोला', 'कालीगण्डकी', 'गल्याङ', 'चापाकोट', 'पुतलीबजार', 'फेदीखोला', 'बिरुवा', 'भीरकोट', 'वालिङ', 'हरिनास'],
-"तनहुँ": ['आँबुखैरेनी', 'ऋषिङ्ग', 'घिरिङ', 'देवघाट', 'भानु', 'भिमाद', 'म्याग्दे', 'वन्दिपुर', 'व्यास', 'शुक्लागण्डकी'],
-"कपिलवस्तु": ['कपिलवस्तु', 'कृष्णनगर', 'बाणगंगा', 'बुद्धभुमी', 'महाराजगंज', 'मायादेवी', 'यसोधरा', 'विजयनगर', 'शिवराज', 'सुद्धोधन'],
-"परासी": ['पाल्हीनन्दन', 'प्रतापपुर', 'बर्दघाट', 'रामग्राम', 'सरावल', 'सुनवल', 'सुस्ता'],
-"रुपन्देही": ['ओमसतिया', 'कन्चन', 'कोटहीमाई', 'गैडहवा', 'तिलोत्तमा', 'देवदह', 'बुटवल', 'मर्चवारी', 'मायादेवी', 'रोहिणी', 'लुम्बिनी सांस्कृतिक', 'शुद्धोधन', 'सम्मरीमाई', 'सिद्धार्थनगर', 'सियारी', 'सैनामैना'],
-"अर्घाखाँची": ['छत्रदेव', 'पाणिनी', 'भूमिकास्थान', 'मालारानी', 'शितगंगा', 'सन्धिखर्क'],
-"गुल्मी": ['ईस्मा', 'कालीगण्डकी', 'गुल्मी दरबार', 'चन्द्रकोट', 'छत्रकोट', 'धुर्कोट', 'मदाने', 'मालिका', 'मुसिकोट', 'रुरुक्षेत्र', 'रेसुङ्गा', 'सत्यवती'],
-"पाल्पा": ['तानसेन', 'तिनाउ', 'निस्दी', 'पूर्वखोला', 'बगनासकाली', 'माथागढी', 'रम्भा', 'रामपुर', 'रिब्दिकोट', 'रैनादेवी छहरा'],
-"दाङ": ['गढवा', 'घोराही', 'तुल्सीपुर', 'दंगीशरण', 'बंगलाचुली', 'बबई', 'राजपुर', 'राप्ती', 'लमही', 'शान्तिनगर'],
-"प्युठान": ['ऐरावती', 'गौमुखी', 'झिमरुक', 'नौवहिनी', 'प्यूठान', 'मल्लरानी', 'माण्डवी', 'सरुमारानी', 'स्वर्गद्वारी'],
-"रोल्पा": ['गंगादेव', 'त्रिवेणी', 'थवाङ', 'परिवर्तन', 'माडी', 'रुन्टीगढी', 'रोल्पा', 'लुङग्री', 'सुनछहरी', 'सुनिल स्मृति'],
-"पूर्वी रूकुम": ['पुथा उत्तरगंगा', 'भूमे', 'सिस्ने'],
-"बाँके": ['कोहलपुर', 'खजुरा', 'जानकी', 'डुडुवा', 'नरैनापुर', 'नेपालगंज', 'बैजनाथ', 'राप्ती सोनारी'],
-"बर्दिया": ['गुलरिया', 'गेरुवा', 'ठाकुरबाबा', 'बढैयाताल', 'बाँसगढी', 'बारबर्दिया', 'मधुवन', 'राजापुर'],
-"रुकुम पश्चिम": ['आठबिसकोट', 'चौरजहारी', 'त्रिवेणी', 'बाँफिकोट', 'मुसिकोट', 'सानी भेरी'],
-"सल्यान": ['कपुरकोट', 'कालिमाटी', 'कुमाख', 'छत्रेश्वरी', 'त्रिवेणी', 'दार्मा', 'बनगाड कुपिण्डे', 'बागचौर', 'शारदा', 'सिद्ध कुमाख'],
-"डोल्पा": ['काईके', 'छार्का ताङसोङ', 'जगदुल्ला', 'ठूली भेरी', 'डोल्पो बुद्ध', 'त्रिपुरासुन्दरी', 'मुड्केचुला', 'शे फोक्सुन्डो'],
-"हुम्ला": ['अदानचुली', 'खार्पुनाथ', 'चंखेली', 'ताँजाकोट', 'नाम्खा', 'सर्केगाड', 'सिमकोट'],
-"जुम्ला": ['कनकासुन्दरी', 'गुठिचौर', 'चन्दननाथ', 'तातोपानी', 'तिला', 'पातारासी', 'सिंजा', 'हिमा'],
-"कालिकोट": ['खाँडाचक्र', 'तिलागुफा', 'नरहरिनाथ', 'पचालझरना', 'पलाता', 'महावै', 'रास्कोट', 'शुभ कालीका', 'सान्नी त्रिवेणी'],
-"मुगु": ['खत्याड', 'छायाँनाथ रारा', 'मुगुम कार्मारोंग', 'सोरु'],
-"सुर्खेत": ['गुर्भाकोट', 'चिङ्गाड', 'चौकुने', 'पञ्चपुरी', 'बराहताल', 'बीरेन्द्रनगर', 'भेरीगंगा', 'लेकवेशी', 'सिम्ता'],
-"दैलेख": ['आठबीस', 'गुराँस', 'चामुण्डा विन्द्रासैनी', 'ठाँटीकाँध', 'डुंगेश्वर', 'दुल्लु', 'नारायण', 'नौमुले', 'भगवतीमाई', 'भैरवी', 'महावु'],
-"जाजरकोट": ['कुसे', 'छेडागाड', 'जुनीचाँदे', 'नलगाड', 'बारेकोट', 'भेरी', 'शिवालय'],
-"दार्चुला": ['अपिहिमाल', 'दुहुँ', 'नौगाड', 'ब्याँस', 'महाकाली', 'मार्मा', 'मालिकार्जुन', 'लेकम', 'शैल्यशिखर'],
-"बझाङ": ['केदारस्युँ', 'खप्तडछान्ना', 'छबिसपाथिभेरा', 'जयपृथ्वी', 'तलकोट', 'थलारा', 'दुर्गाथली', 'बुंगल', 'मष्टा', 'वित्थडचिर', 'साइपाल', 'सूर्मा'],
-"बाजुरा": ['खप्तड छेडेदह', 'गौमुल', 'जगन्\u200dनाथ', 'त्रिवेणी', 'बडीमालिका', 'बुढीगंगा', 'बुढीनन्दा', 'स्वामीकार्तिक खापर', 'हिमाली'],
-"बैतडी": ['डीलासैनी', 'दशरथचन्द', 'दोगडाकेदार', 'पञ्चेश्वर', 'पाटन', 'पुर्चौडी', 'मेलौली', 'शिवनाथ', 'सिगास', 'सुर्नया'],
-"डोटी": ['आदर्श', 'के.आई.सिं.', 'जोरायल', 'दिपायल सिलगढी', 'पूर्वीचौकी', 'बडीकेदार', 'बोगटान फुड्सिल', 'शिखर', 'सायल'],
-"अछाम": ['कमलबजार', 'चौरपाटी', 'ढकारी', 'तुर्माखाँद', 'पन्चदेवल विनायक', 'बान्निगढी जयगढ', 'मंगलसेन', 'मेल्लेख', 'रामारोशन', 'साँफेबगर'],
-"डडेलधुरा": ['अजयमेरु', 'अमरगढी', 'आलिताल', 'गन्यापधुरा', 'नवदुर्गा', 'परशुराम', 'भागेश्वर'],
-"कञ्चनपुर": ['कृष्णपुर', 'पुर्नवास', 'बेलडाडी', 'बेलौरी', 'भीमदत्त', 'माहाकाली', 'लालझाडी', 'वेदकोट', 'शुक्लाफाँटा'],
-"कैलाली": ['कैलारी', 'गोदावरी', 'गौरीगंगा', 'घोडाघोडी', 'चुरे', 'जानकी', 'जोशीपुर', 'टिकापुर', 'धनगढी', 'बर्दगोरिया', 'भजनी', 'मोहन्याल', 'लम्कीचुहा'],
-
-            // Add other district municipalities here...
-        };
-
-        if (municipalities[selectedDistrict]) {
-            municipalityOptionHTML = municipalities[selectedDistrict].map(municipality => `<option value="${municipality}">${municipality}</option>`).join('');
-        }
-
-        municipalitySelect.innerHTML = `<option value="">Select a Temporary municipality</option>` + municipalityOptionHTML;
-    });
-</script>
-
-<div class="mb-3">
-    <label for="TemporaryAddressWardNoInput" class="form-label">Temporary Address Ward No</label>
-    <input type="number" class="form-control" id="TemporaryAddressWardNoInput" placeholder="Enter ward number">
-</div>
-<div class="mb-3">
-    <label for="TemporaryAddressToleInput" class="form-label">Temporary Address Tole/Address</label>
-    <input type="text" class="form-control" id="TemporaryAddressToleInput" placeholder="Enter tole or address">
-</div>
-
-
-<!-- for blood group -->
-<div class="mb-3">
-    <label class="form-label">Blood Group</label>
-    <div id="bloodGroupButtons">
-        <button type="button" class="btn btn-outline-primary text-black-50" data-value="A+">A+</button>
-        <button type="button" class="btn btn-outline-primary text-black-50" data-value="A-">A-</button>
-        <button type="button" class="btn btn-outline-primary text-black-50" data-value="B+">B+</button>
-        <button type="button" class="btn btn-outline-primary text-black-50" data-value="B-">B-</button>
-        <button type="button" class="btn btn-outline-primary text-black-50" data-value="AB+">AB+</button>
-        <button type="button" class="btn btn-outline-primary text-black-50" data-value="AB-">AB-</button>
-        <button type="button" class="btn btn-outline-primary text-black-50" data-value="O+">O+</button>
-        <button type="button" class="btn btn-outline-primary text-black-50" data-value="O-">O-</button>
-    </div>
-    <script>
-        document.querySelectorAll('#bloodGroupButtons button').forEach(button => {
-            button.addEventListener('click', function() {
-                document.querySelectorAll('#bloodGroupButtons button').forEach(btn => {
-                    btn.classList.remove('btn-primary');
-                    btn.classList.add('btn-outline-primary');
-                });
-                this.classList.remove('btn-outline-primary');
-                this.classList.add('btn-primary');
-            });
-        });
-    </script>
-</div>
-<div class="mb-3">
-    <label class="form-label">Are you available for blood donation?</label>
-    <div id="bloodGroupAvailabilityButtons">
-        <button type="button" class="btn btn-outline-primary text-black-50" data-value="yes" onclick="changeButtonColor(this)">Yes</button>
-        <button type="button" class="btn btn-outline-primary text-black-50" data-value="no" onclick="changeButtonColor(this)">No</button>
-    </div>
-</div>
-
-<script>
-    function changeButtonColor(button) {
-        let buttons = document.querySelectorAll("#bloodGroupAvailabilityButtons button");
-        buttons.forEach(btn => {
-            btn.classList.remove('btn-primary');  // Remove the selected style
-            btn.classList.add('btn-outline-primary');  // Reset to the default state
-        }); 
-        button.classList.remove('btn-outline-primary'); // Remove default style
-        button.classList.add('btn-primary');  // Apply primary style
-    }
-</script>
-<div class="mb-3">
-    <label class="form-label">Social Media Sewa Status</label>
-    <div id="socialMediaSewaStatusButtons">
-        <button type="button" class="btn btn-outline-primary text-black-50" data-value="Active with report submission">Active with report submission</button>
-        <button type="button" class="btn btn-outline-primary text-black-50" data-value="Active but cant send report">Active but cant send report</button>
-        <button type="button" class="btn btn-outline-primary text-black-50" data-value="Passive">Passive</button>
-        <button type="button" class="btn btn-outline-primary text-black-50" data-value="Not Active">Not Active</button>
-        <script>
-            document.querySelectorAll('#socialMediaSewaStatusButtons button').forEach(button => {
-                button.addEventListener('click', function() {
-                    document.querySelectorAll('#socialMediaSewaStatusButtons button').forEach(btn => {
-                        btn.classList.remove('btn-primary');
-                        btn.classList.add('btn-outline-primary');
-                    });
-                    this.classList.remove('btn-outline-primary');
-                    this.classList.add('btn-primary');
-                });
-            });
-        </script>
-    </div>
-<div class="mb-3">
-    
-    <label class="form-label">Joined in social media group</label>
-    <div id="socialMediaGroupButtons">
-        <button type="button" class="btn btn-outline-primary" data-value="learningGroup">Learning ग्रुप</button>
-        <button type="button" class="btn btn-outline-primary" data-value="socialMediaGroup">Social Media Group</button>
-        <button type="button" class="btn btn-outline-primary" data-value="bookOrder">Book Order</button>
-        <button type="button" class="btn btn-outline-primary" data-value="trendTeam">Trend Team</button>
+   $(document).ready(function () {
+    $('#myForm').submit(function (e) {
+        e.preventDefault();  // Prevent default form submission
         
-        <button type="button" class="btn btn-outline-primary" data-value="nepalSpecialTrendTeam">Nepal Special Trend Team</button>
-        <button type="button" class="btn btn-outline-primary" data-value="platformGroup">Platform Group (YouTube, Twitter, Facebook, Instagram, Pinterest)</button>
-    </div>
-    <script>
-        const socialMediaGroupButtons = document.querySelectorAll('#socialMediaGroupButtons button');
-        socialMediaGroupButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                if (this.classList.contains('btn-primary')) {
-                    this.classList.remove('btn-primary');
-                    this.classList.add('btn-outline-primary');
-                } else {
-                    this.classList.remove('btn-outline-primary');
-                    this.classList.add('btn-primary');
-                }
-                const selectedGroups = Array.from(socialMediaGroupButtons)
-                    .filter(btn => btn.classList.contains('btn-primary'))
-                    .map(btn => btn.getAttribute('data-value'));
-                console.log('Selected Groups:', selectedGroups.join(','));
-                selectedgroupscustom = selectedGroups.join(',');
-            });
-        });
-    </script>
-</div>
-
-<div class="mb-3">
-  
-        <label class="form-label">Additional Sewa of district/state social media (multiple options can be chosen)</label>
-        <div id="districtStateSocialMediaSewaButtons">
-            <button type="button" class="btn btn-outline-primary" data-value="reportMaking">Report making</button>
-            <button type="button" class="btn btn-outline-primary" data-value="reporting">Reporting</button>
-            <button type="button" class="btn btn-outline-primary" data-value="cameraman">Cameraman</button>
-            <button type="button" class="btn btn-outline-primary" data-value="other">Other</button>
-            <button type="button" class="btn btn-outline-primary" data-value="none">No</button>
-        </div>
-        <script>
-            const districtStateSocialMediaSewaButtons = document.querySelectorAll('#districtStateSocialMediaSewaButtons button');
-            districtStateSocialMediaSewaButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    if (this.classList.contains('btn-primary')) {
-                        this.classList.remove('btn-primary');
-                        this.classList.add('btn-outline-primary');
-                    } else {
-                        this.classList.remove('btn-outline-primary');
-                        this.classList.add('btn-primary');
-                    }
-                    const selectedGroups = Array.from(districtStateSocialMediaSewaButtons)
-                        .filter(btn => btn.classList.contains('btn-primary'))
-                        .map(btn => btn.getAttribute('data-value'));
-                    console.log('Selected Groups:', selectedGroups.join(','));
-                    selecteddistrictsewagroupscustom = selectedGroups.join(',');
-                });
-            });
-        </script>
-   
-</div>
-<div class="mb-3">
-    <label class="form-label">SMS Sewa Status</label>
-    <div id="smsSewaStatusButtons">
-        <button type="button" class="btn btn-outline-primary" data-value="no">No</button>
-        <button type="button" class="btn btn-outline-primary" data-value="activeGoodResponse">Active with good response</button>
-        <button type="button" class="btn btn-outline-primary" data-value="activeNoReport">Active with no report</button>
-        <button type="button" class="btn btn-outline-primary" data-value="passiveSlow">Passive (slow)</button>
-    </div>
-    <script>
-        const smsSewaStatusButtons = document.querySelectorAll('#smsSewaStatusButtons button');
-        smsSewaStatusButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                const selectedGroup = this.getAttribute('data-value');
-                console.log('Selected Group:', selectedGroup);
-                smsSewaStatusButtons.forEach(btn => {
-                    btn.classList.remove('btn-primary');
-                    btn.classList.add('btn-outline-primary');
-                });
-                this.classList.remove('btn-outline-primary');
-                this.classList.add('btn-primary');
-            });
-        });
-    </script>
-</div>
-<div class="mb-3">
-    <label for="smsSewaGroupInput" class="form-label">Have you joined any group in SMS Sewa?</label>
-    <input type="text" class="form-control" id="smsSewaGroupInput" placeholder="Enter the name of the group">
-</div>
-<div class="mb-3">
-    <label for="specialSewaSMSInput" class="form-label">Any special Sewa in SMS?</label>
-    <input type="text" class="form-control" id="specialSewaSMSInput" placeholder="Enter any special Sewa in SMS">
-</div>
-
-<div class="mb-3">
-    <label class="form-label">SMS Calling Sewa?</label>
-    <div id="smsCallingSewaButtons">
-        <button type="button" class="btn btn-outline-primary" data-value="yes">Yes</button>
-        <button type="button" class="btn btn-outline-primary" data-value="no">No</button>
-    </div>
-</div>
-<div class="mb-3">
-    <label class="form-label">SMS Feedback Calling Sewa?</label>
-    <div id="smsFeedbackCallingSewaButtons">
-        <button type="button" class="btn btn-outline-primary" data-value="yes">Yes</button>
-        <button type="button" class="btn btn-outline-primary" data-value="no">No</button>
-    </div>
-</div>
-<script>
-  
-
-   
-    const smsCallingSewaButtons = document.querySelectorAll('#smsCallingSewaButtons button');
-    smsCallingSewaButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const selectedValue = this.getAttribute('data-value');
-            console.log('SMS Calling Sewa:', selectedValue);
-            smsCallingSewaButtons.forEach(btn => {
-                btn.classList.remove('btn-primary');
-                btn.classList.add('btn-outline-primary');
-            });
-            this.classList.remove('btn-outline-primary');
-            this.classList.add('btn-primary');
-        });
-    });
-    
-    const smsFeedbackCallingSewaButtons = document.querySelectorAll('#smsFeedbackCallingSewaButtons button');
-    smsFeedbackCallingSewaButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const selectedValue = this.getAttribute('data-value');
-            console.log('SMS Feedback Calling Sewa:', selectedValue);
-            smsFeedbackCallingSewaButtons.forEach(btn => {
-                btn.classList.remove('btn-primary');
-                btn.classList.add('btn-outline-primary');
-            });
-            this.classList.remove('btn-outline-primary');
-            this.classList.add('btn-primary');
-        });
-    });
-</script>
-
-<div class="mb-3">
-    <label for="otherSewaResponsibilityInput" class="form-label">Any other Sewa responsibility?</label>
-    <input type="text" class="form-control" id="otherSewaResponsibilityInput" placeholder="Enter any other Sewa responsibility">
-    <script>
-        let  logObject = {}; // Ensure logObject is defined
-
-        function logFormValues() {
-            const formElements = [
-                'nameInput', 'ageInput', 'nameTypeButtons', 'prathamnameInput', 'whatsappInput', 
-                'genderButtons', 'bhagatButtons','bhagatMemberInput', 'permanentAddressStateInput',
-                'permanentAddressDistrictInput', 'TemporaryAddressDistrictInput', 'TemporaryAddressMunicipalityInput',
-                'TemporaryAddressStateInput', 'TemporaryAddressToleInput', 'TemporaryAddressWardNoInput',
-                'bloodGroupAvailabilityButtons', 'bloodGroupButtons', 'districtStateSocialMediaSewaButtons',
-                'otherSewaResponsibilityInput', 'smsCallingSewaButtons', 'smsFeedbackCallingSewaButtons',
-                'smsSewaGroupInput', 'smsSewaStatusButtons', 'socialMediaGroupButtons', 'socialMediaSewaStatusButtons',
-                'specialSewaSMSInput'
-            ];
-    
-            formElements.forEach(id => {
-                const element = document.getElementById(id);
-                switch (id) {
-                    case 'nameTypeButtons':
-                    logObject[id] = element.querySelector('.btn-primary') ? element.querySelector('.btn-primary').getAttribute('data-value') : null;
-                    break;
-                    case 'genderButtons':
-                    logObject[id] = element.querySelector('.btn-primary') ? element.querySelector('.btn-primary').getAttribute('data-value') : null;
-                    break;
-                    case 'bhagatButtons':
-                    logObject[id] = element.querySelector('.btn-primary') ? element.querySelector('.btn-primary').getAttribute('data-value') : null;
-                    break;
-                    case 'bloodGroupButtons':
-                    logObject[id] = element.querySelector('.btn-primary') ? element.querySelector('.btn-primary').getAttribute('data-value') : null;
-                    break;
-                    case 'bloodGroupAvailabilityButtons':
-                    logObject[id] = element.querySelector('.btn-primary') ? element.querySelector('.btn-primary').getAttribute('data-value') : null;
-                    break;
-                    case 'smsSewaStatusButtons':
-                    logObject[id] = element.querySelector('.btn-primary') ? element.querySelector('.btn-primary').getAttribute('data-value') : null;
-                    break;
-                    case 'smsCallingSewaButtons':
-                    logObject[id] = element.querySelector('.btn-primary') ? element.querySelector('.btn-primary').getAttribute('data-value') : null;
-                    break;
-                    case 'smsFeedbackCallingSewaButtons':
-                    logObject[id] = element.querySelector('.btn-primary') ? element.querySelector('.btn-primary').getAttribute('data-value') : null;
-                    break;
-                    case 'socialMediaSewaStatusButtons':
-                        logObject[id] = element.querySelector('.btn-primary') ? element.querySelector('.btn-primary').getAttribute('data-value') : null;
-                        break;
-                    case 'socialMediaGroupButtons':
-                        logObject[id] = element.querySelector('.btn-primary') ? selectedgroupscustom : null;
-                        break;
-                    case 'districtStateSocialMediaSewaButtons':
-                        logObject[id] = element.querySelector('.btn-primary') ? selecteddistrictsewagroupscustom : null;
-                        break;
-                     
-                    case 'otherSewaResponsibilityInput':
-                    case 'specialSewaSMSInput':
-                    case 'smsSewaGroupInput':
-                    case 'whatsappInput':
-                    case 'prathamnameInput':
-                    case 'permanentAddressStateInput':
-                    case 'permanentAddressDistrictInput':
-                    case 'permanentAddressMunicipalityInput':
-                    case 'permanentAddressToleInput':
-                    case 'permanentAddressWardNoInput':
-                    case 'TemporaryAddressStateInput':
-                    case 'TemporaryAddressDistrictInput':
-                    case 'TemporaryAddressMunicipalityInput':
-                    case 'TemporaryAddressToleInput':
-                    case 'TemporaryAddressWardNoInput':
-                    case 'nameTypeButtons':
-                    case 'bhagatMemberInput':
-                        logObject[id] = element.value;
-                        break;
-                    default:
-                        logObject[id] = element.value;
-                }
-                  
-            });
-    
-            console.log(logObject);  
-        }
-
-
-        $(document).ready(function () {
-      $("#sendRequest").click(function () {
+        var submitBtn = $('#submitBtn');
+        var btnText = $('#btnText');
+        var btnLoader = $('#btnLoader');
+        
         const url = "https://script.google.com/macros/s/AKfycbxky1Zkg3b64-tzSMY_GwPQlNfrFcleEuhx0BlFix0xEGkJKXOO9rqiAm-U13UGbl4Wnw/exec";
-        const data =  logObject;
+        
+        var formData = new FormData(this);
+
+        const socialMediaGroups = Array.from(document.querySelectorAll('input[name="socialMediaGroup"]:checked'))
+            .map(checkbox => checkbox.value);
+
+        const additionalSewaDistrictState = Array.from(document.querySelectorAll('input[name="AdditionalSewa"]:checked'))
+            .map(checkbox => checkbox.value);
+
+        const data = {
+            name: formData.get('nameInput'),
+            phone: formData.get('phone_number'),
+            mantraType: formData.get('mantraType'),
+            mantraTakenDate: formData.get('mantraTakenDate'),
+            dob: formData.get('dob'),
+            gender: formData.get('gender'),
+            yes_no_memberBhagat: formData.get('member_bhagat'),
+            yesanotherBhagatMemberName: formData.get('member_bhagat') === "Yes" ? formData.get('yesanotherBhagat') : null,
+            permanent_address: {
+                province: formData.get('permanentAddressStateInput'),
+                district: formData.get('permanentAddressDistrictInput'),
+                municipality: formData.get('permanentAddressMunicipalityInput'),
+                ward: formData.get('permanentAddressWardInput'),
+                tole: formData.get('permanentAddressToleInput')
+            },
+            temporary_address: {
+                province: formData.get('temporaryAddressStateInput'),
+                district: formData.get('temporaryAddressDistrictInput'),
+                municipality: formData.get('temporaryAddressMunicipalityInput'),
+                ward: formData.get('temporaryAddressWardInput'),
+                tole: formData.get('temporaryAddressToleInput')
+            },
+            blood_group: formData.get('bloodgroup'),
+            blood_donation_yes_no: formData.get('blood_donation'),
+            socialMediaGroups: socialMediaGroups,
+            social_media_sewa_status: formData.get('social_status'),
+            additionalSewaDistrictState: additionalSewaDistrictState,
+            sms_sewa_status: formData.get('sms_status'),
+            joined_in_sms_sewa_group: formData.get('smsSewaGroupInput'),
+            special_sewa_in_sms: formData.get('specialSewaSMSInput'),
+            calling_sewa: formData.get('calling_sewa'),
+            feedback_calling_sewa: formData.get('feedback_calling_sewa'),
+            other_sewa_responsibility: formData.get('otherSewaResponsibilityInput')
+        };
 
         console.log(data);
 
-        $.ajax({
-          url: url,
-          type: "POST",
-          data: JSON.stringify(data),
-          success: function (response) {
-            console.log("Success:", response);
-            alert("Request successful!");
-          },
-          error: function (xhr, status, error) {
-            console.error("Error:", error);
-            // Optionally display an error message to the user
-            alert("An error occurred while sending the request.");
-          }
+        // Show loading spinner in button and disable it
+        btnLoader.show();
+        btnText.hide();
+        submitBtn.prop('disabled', true);
+
+        // Use SweetAlert2 to show a loading state
+        Swal.fire({
+            title: 'Processing...',
+            text: 'Please wait while we process your request.',
+            didOpen: () => {
+                Swal.showLoading();
+            }
         });
-      });
+
+        // Send AJAX request
+        $.ajax({
+            url: url,
+            type: "POST",
+            data: JSON.stringify(data),
+            success: function (response) {
+                console.log("Success:", response);
+
+                // Show success message
+                Swal.fire({
+                    title: 'Success!',
+                    text: `${response.message}`,
+                    icon: 'success'
+                }).then(() => {
+                    btnLoader.hide();
+                    btnText.show();
+                    submitBtn.prop('disabled', false);  // Re-enable the button
+                });
+            },
+            error: function (xhr, status, error) {
+                console.error("Error:", error);
+
+                // Show error message
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'An error occurred while sending the request.',
+                    icon: 'error'
+                }).then(() => {
+                    btnLoader.hide();
+                    btnText.show();
+                    submitBtn.prop('disabled', false);  // Re-enable the button
+                });
+            }
+        });
     });
-  </script>
-    </script>
+});
+
     
-    <div class="btn-group">
-        <button type="button"  id="sendRequest" class="btn btn-primary" onclick="logFormValues()">Submit</button>
-        <button type="button" class="btn btn-secondary">Cancel</button>
-    </div>
-    
-    </div>
-</body>
-</html>
- 
+</script>
