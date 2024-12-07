@@ -915,10 +915,13 @@ button {
         var formData = new FormData(this);
 
         const socialMediaGroups = Array.from(document.querySelectorAll('input[name="socialMediaGroup"]:checked'))
-            .map(checkbox => checkbox.value);
+            .map(checkbox => checkbox.value)
+            .join(", ");  
 
+        // Get the selected values for 'AdditionalSewa' and join them with commas
         const additionalSewaDistrictState = Array.from(document.querySelectorAll('input[name="AdditionalSewa"]:checked'))
-            .map(checkbox => checkbox.value);
+            .map(checkbox => checkbox.value)
+            .join(", ");  
 
             const data = {
                 nameInput: formData.get('nameInput'),
